@@ -1,0 +1,87 @@
+openapi: 3.0.0
+info:
+  description: This api allow you to add and validate promo codes
+  version: 1.0.0
+  title: indy-tech-test
+paths:
+  /api/v1/promocodes:
+    post:
+      summary: Add a promo code
+      description: |
+        Allow to set various restrictions to a promo code
+      operationId: addPromoCode
+      requestBody:
+        description: test
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Test"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OK"
+        "401":
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GlobalError"
+              example:
+                message: "You are not allowed to access this resource"
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GlobalError"
+              example:
+                message: "Validation failed for request.."
+
+  /api/v1/promocodes/validate:
+    post:
+      summary: Validate a promo code
+      description: |
+        Validate a given promo code to apply its corresponding discount
+      operationId: validatePromocode
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OK"
+        "401":
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GlobalError"
+              example:
+                message: "You are not allowed to access this resource"
+        "400":
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GlobalError"
+              example:
+                message: "Validation failed for request.."
+
+components:
+  schemas:
+    GlobalError:
+      required:
+        - message
+      properties:
+        message:
+          type: string
+    OK:
+      type: boolean
+    Test:
+      type: object
+      properties:
+        val:
+          type: boolean
