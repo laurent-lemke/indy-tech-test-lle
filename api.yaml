@@ -18,11 +18,7 @@ paths:
               $ref: "#/components/schemas/Test"
       responses:
         "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/OK"
+          description: Promo code has been succesfully added
         "401":
           description: "Unauthorized"
           content:
@@ -46,13 +42,18 @@ paths:
       description: |
         Validate a given promo code to apply its corresponding discount
       operationId: validatePromocode
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PromocodeValidateBody"
       responses:
         "200":
-          description: OK
+          description: Promo code is valid and give its corresponding discount
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OK"
+                $ref: "#/components/schemas/PromocodeValidateResponse"
         "401":
           description: "Unauthorized"
           content:
@@ -78,10 +79,55 @@ components:
       properties:
         message:
           type: string
-    OK:
-      type: boolean
-    Test:
+
+    PromocodeValidateBody:
+      type: object
+      required:
+        - promocode_name
+      properties:
+        promocode_name:
+          type: string
+        arguments:
+          $ref: "#/components/schemas/PromocodeArgumentsBody"
+
+    PromocodeArgumentsBody:
       type: object
       properties:
-        val:
-          type: boolean
+        age:
+          type: number
+          minimum: 0
+          maximum: 130
+        meteo:
+          $ref: "#/components/schemas/Meteo"
+
+    Meteo:
+      type: object
+      required:
+        - town
+      properties:
+        town:
+          type: string
+
+    PromocodeValidateResponse:
+      type: object
+      required:
+        - promocode_name
+        - status
+      properties:
+        promocode_name:
+          type: string
+        status:
+          type: string
+          enum: ["accepted", "denied"]
+        reasons:
+          type: object
+
+    reasons:
+      type: object
+      properties:
+        meteo:
+          type: string
+        date:
+          type: string
+        age:
+          type: string
