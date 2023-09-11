@@ -31,7 +31,7 @@
     "prepare": "npm run build && husky install",
     "run:dev": "nodemon ./src/index.ts",
     "run:prod": "yarn build && node --experimental-modules --es-module-specifier-resolution=node ./dist/index.js",
-    "test": "mocha",
+    "test:api": "portman --cliOptionsFile ./portman/portman-cli.json",
     "version": "npm run build && npm run changelog:update"
   },
   "devDependencies": {

@@ -1,10 +1,10 @@
 {
   "_": {
-    "postman_id": "14a2bc88-12d4-4ce9-a213-c4eb457c880d"
+    "postman_id": "b1b4b228-3312-4141-ad90-096ddb1571a5"
   },
   "item": [
     {
-      "id": "7d444479-29fb-4df0-92ac-cf7f8128c91a",
+      "id": "60805f08-cf86-4158-b279-9945599ea464",
       "name": "Add a promo code",
       "request": {
         "name": "Add a promo code",
@@ -37,7 +37,7 @@
         "method": "POST",
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"name\": \"qui non\",\n  \"avantage\": {\n    \"percent\": 62\n  },\n  \"restrictions\": [\n    {\n      \"@meteo\": {\n        \"is\": \"clear\"\n      }\n    }\n  ]\n}",
+          "raw": "{\n  \"name\": \"eiusmod non sit occaecat pariatur\",\n  \"avantage\": {\n    \"percent\": 70\n  },\n  \"restrictions\": [\n    {\n      \"@meteo\": {\n        \"is\": \"cloudy\"\n      }\n    }\n  ]\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -50,7 +50,7 @@
           "_": {
             "postman_previewlanguage": "text"
           },
-          "id": "5f395c94-b359-4de1-9e87-4a845b259ff1",
+          "id": "d6f0d62c-0c51-4e83-aa92-0f6591841ca8",
           "name": "Promo code has been succesfully added",
           "originalRequest": {
             "url": {
@@ -68,7 +68,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"qui non\",\n  \"avantage\": {\n    \"percent\": 62\n  },\n  \"restrictions\": [\n    {\n      \"@meteo\": {\n        \"is\": \"clear\"\n      }\n    }\n  ]\n}",
+              "raw": "{\n  \"name\": \"eiusmod non sit occaecat pariatur\",\n  \"avantage\": {\n    \"percent\": 70\n  },\n  \"restrictions\": [\n    {\n      \"@meteo\": {\n        \"is\": \"cloudy\"\n      }\n    }\n  ]\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -91,7 +91,7 @@
           "_": {
             "postman_previewlanguage": "json"
           },
-          "id": "0c7b8bcc-ce5f-4ce7-9eb7-113a4cb54ae5",
+          "id": "8f0fcce3-2e41-4f78-901d-68959296435b",
           "name": "Bad Request",
           "originalRequest": {
             "url": {
@@ -115,7 +115,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"qui non\",\n  \"avantage\": {\n    \"percent\": 62\n  },\n  \"restrictions\": [\n    {\n      \"@meteo\": {\n        \"is\": \"clear\"\n      }\n    }\n  ]\n}",
+              "raw": "{\n  \"name\": \"eiusmod non sit occaecat pariatur\",\n  \"avantage\": {\n    \"percent\": 70\n  },\n  \"restrictions\": [\n    {\n      \"@meteo\": {\n        \"is\": \"cloudy\"\n      }\n    }\n  ]\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -138,7 +138,7 @@
           "_": {
             "postman_previewlanguage": "json"
           },
-          "id": "9775a40e-9c4a-4ecd-92de-dfbb82d9b306",
+          "id": "148fed4d-daff-4cfc-aea7-fdaa5851d28e",
           "name": "Unauthorized",
           "originalRequest": {
             "url": {
@@ -162,7 +162,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"qui non\",\n  \"avantage\": {\n    \"percent\": 62\n  },\n  \"restrictions\": [\n    {\n      \"@meteo\": {\n        \"is\": \"clear\"\n      }\n    }\n  ]\n}",
+              "raw": "{\n  \"name\": \"eiusmod non sit occaecat pariatur\",\n  \"avantage\": {\n    \"percent\": 70\n  },\n  \"restrictions\": [\n    {\n      \"@meteo\": {\n        \"is\": \"cloudy\"\n      }\n    }\n  ]\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -186,7 +186,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "efd3db76-d744-4e6a-89cd-60a9cb8c77d3",
+            "id": "05f172eb-be08-4c42-b953-fde90eb2bc19",
             "type": "text/javascript",
             "exec": [
               "// Validate status 2xx \npm.test(\"[POST]::/api/v1/promocodes - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n"
@@ -199,7 +199,7 @@
       }
     },
     {
-      "id": "086d7231-3981-42b9-a429-ae13c07769ee",
+      "id": "ee226d74-4ac9-4157-b4cc-900cf237c09e",
       "name": "Validate a promo code",
       "request": {
         "name": "Validate a promo code",
@@ -233,7 +233,7 @@
         "method": "POST",
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"promocode_name\": \"nulla i\",\n  \"arguments\": {\n    \"age\": 55.05607194131581,\n    \"meteo\": {\n      \"town\": \"Excepteur irure exercitation quis\"\n    }\n  }\n}",
+          "raw": "{\n  \"promocode_name\": \"ipsum consequat sit\",\n  \"arguments\": {\n    \"age\": 66,\n    \"meteo\": {\n      \"town\": \"aliquip ea\"\n    }\n  }\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -246,7 +246,7 @@
           "_": {
             "postman_previewlanguage": "json"
           },
-          "id": "710e0694-46bc-4fb9-ab37-e13a43ac02fd",
+          "id": "98bde2c8-a652-45d6-9431-4c583531b7fc",
           "name": "Promo code is valid and give its corresponding discount",
           "originalRequest": {
             "url": {
@@ -271,7 +271,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"promocode_name\": \"nulla i\",\n  \"arguments\": {\n    \"age\": 55.05607194131581,\n    \"meteo\": {\n      \"town\": \"Excepteur irure exercitation quis\"\n    }\n  }\n}",
+              "raw": "{\n  \"promocode_name\": \"ipsum consequat sit\",\n  \"arguments\": {\n    \"age\": 66,\n    \"meteo\": {\n      \"town\": \"aliquip ea\"\n    }\n  }\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -287,14 +287,14 @@
               "value": "application/json"
             }
           ],
-          "body": "{\n  \"promocode_name\": \"Lorem culpa\",\n  \"status\": \"denied\",\n  \"reasons\": {}\n}",
+          "body": "{\n  \"promocode_name\": \"nisi\",\n  \"status\": \"denied\",\n  \"reasons\": {}\n}",
           "cookie": []
         },
         {
           "_": {
             "postman_previewlanguage": "json"
           },
-          "id": "fe1d1719-1162-4600-a2fd-539a4540c2ea",
+          "id": "c405e0f1-16af-4f4c-add4-c52e5c44a0b0",
           "name": "Bad Request",
           "originalRequest": {
             "url": {
@@ -319,7 +319,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"promocode_name\": \"nulla i\",\n  \"arguments\": {\n    \"age\": 55.05607194131581,\n    \"meteo\": {\n      \"town\": \"Excepteur irure exercitation quis\"\n    }\n  }\n}",
+              "raw": "{\n  \"promocode_name\": \"ipsum consequat sit\",\n  \"arguments\": {\n    \"age\": 66,\n    \"meteo\": {\n      \"town\": \"aliquip ea\"\n    }\n  }\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -342,7 +342,7 @@
           "_": {
             "postman_previewlanguage": "json"
           },
-          "id": "6b880cfc-bccb-4c4a-8e3a-b1f60fc70e94",
+          "id": "abeae72b-73c5-439b-947a-9428fcf2f773",
           "name": "Unauthorized",
           "originalRequest": {
             "url": {
@@ -367,7 +367,7 @@
             "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"promocode_name\": \"nulla i\",\n  \"arguments\": {\n    \"age\": 55.05607194131581,\n    \"meteo\": {\n      \"town\": \"Excepteur irure exercitation quis\"\n    }\n  }\n}",
+              "raw": "{\n  \"promocode_name\": \"ipsum consequat sit\",\n  \"arguments\": {\n    \"age\": 66,\n    \"meteo\": {\n      \"town\": \"aliquip ea\"\n    }\n  }\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -391,7 +391,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "ec615aaa-889d-4742-baf3-a84755f4d5dc",
+            "id": "c8f0361f-d7aa-43d5-a97f-4ac68b30733d",
             "type": "text/javascript",
             "exec": [
               "// Validate status 2xx \npm.test(\"[POST]::/api/v1/promocodes/validate - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -416,7 +416,7 @@
     }
   ],
   "info": {
-    "_postman_id": "14a2bc88-12d4-4ce9-a213-c4eb457c880d",
+    "_postman_id": "b1b4b228-3312-4141-ad90-096ddb1571a5",
     "name": "indy-tech-test",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
