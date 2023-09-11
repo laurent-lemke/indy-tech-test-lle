@@ -12,6 +12,6 @@ const validate = (_req: Request, res: Response) => {
 };
 
 router.post("/", add);
-router.get("/validate", validate);
+router.post("/validate", validate);
 
 export default router;

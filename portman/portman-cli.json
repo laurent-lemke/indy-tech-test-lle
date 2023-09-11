@@ -1,0 +1,7 @@
+{
+  "local": "api.yaml",
+  "output": "collection.postman.json",
+  "includeTests": true,
+  "runNewman": true,
+  "baseUrl": "http://localhost:3000"
+}

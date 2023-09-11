@@ -1,0 +1,427 @@
+{
+  "_": {
+    "postman_id": "14a2bc88-12d4-4ce9-a213-c4eb457c880d"
+  },
+  "item": [
+    {
+      "id": "7d444479-29fb-4df0-92ac-cf7f8128c91a",
+      "name": "Add a promo code",
+      "request": {
+        "name": "Add a promo code",
+        "description": {
+          "content": "Allow to add a promo code with various restrictions\n",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "v1",
+            "promocodes"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "POST",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"qui non\",\n  \"avantage\": {\n    \"percent\": 62\n  },\n  \"restrictions\": [\n    {\n      \"@meteo\": {\n        \"is\": \"clear\"\n      }\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "_": {
+            "postman_previewlanguage": "text"
+          },
+          "id": "5f395c94-b359-4de1-9e87-4a845b259ff1",
+          "name": "Promo code has been succesfully added",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "promocodes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"qui non\",\n  \"avantage\": {\n    \"percent\": 62\n  },\n  \"restrictions\": [\n    {\n      \"@meteo\": {\n        \"is\": \"clear\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": []
+        },
+        {
+          "_": {
+            "postman_previewlanguage": "json"
+          },
+          "id": "0c7b8bcc-ce5f-4ce7-9eb7-113a4cb54ae5",
+          "name": "Bad Request",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "promocodes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"qui non\",\n  \"avantage\": {\n    \"percent\": 62\n  },\n  \"restrictions\": [\n    {\n      \"@meteo\": {\n        \"is\": \"clear\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"message\": \"Validation failed for request..\"\n}",
+          "cookie": []
+        },
+        {
+          "_": {
+            "postman_previewlanguage": "json"
+          },
+          "id": "9775a40e-9c4a-4ecd-92de-dfbb82d9b306",
+          "name": "Unauthorized",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "promocodes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"qui non\",\n  \"avantage\": {\n    \"percent\": 62\n  },\n  \"restrictions\": [\n    {\n      \"@meteo\": {\n        \"is\": \"clear\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"message\": \"You are not allowed to access this resource\"\n}",
+          "cookie": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "efd3db76-d744-4e6a-89cd-60a9cb8c77d3",
+            "type": "text/javascript",
+            "exec": [
+              "// Validate status 2xx \npm.test(\"[POST]::/api/v1/promocodes - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n"
+            ]
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "086d7231-3981-42b9-a429-ae13c07769ee",
+      "name": "Validate a promo code",
+      "request": {
+        "name": "Validate a promo code",
+        "description": {
+          "content": "Validate a given promo code to apply its corresponding discount\n",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "v1",
+            "promocodes",
+            "validate"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "POST",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"promocode_name\": \"nulla i\",\n  \"arguments\": {\n    \"age\": 55.05607194131581,\n    \"meteo\": {\n      \"town\": \"Excepteur irure exercitation quis\"\n    }\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "_": {
+            "postman_previewlanguage": "json"
+          },
+          "id": "710e0694-46bc-4fb9-ab37-e13a43ac02fd",
+          "name": "Promo code is valid and give its corresponding discount",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "promocodes",
+                "validate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"promocode_name\": \"nulla i\",\n  \"arguments\": {\n    \"age\": 55.05607194131581,\n    \"meteo\": {\n      \"town\": \"Excepteur irure exercitation quis\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"promocode_name\": \"Lorem culpa\",\n  \"status\": \"denied\",\n  \"reasons\": {}\n}",
+          "cookie": []
+        },
+        {
+          "_": {
+            "postman_previewlanguage": "json"
+          },
+          "id": "fe1d1719-1162-4600-a2fd-539a4540c2ea",
+          "name": "Bad Request",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "promocodes",
+                "validate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"promocode_name\": \"nulla i\",\n  \"arguments\": {\n    \"age\": 55.05607194131581,\n    \"meteo\": {\n      \"town\": \"Excepteur irure exercitation quis\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"message\": \"Validation failed for request..\"\n}",
+          "cookie": []
+        },
+        {
+          "_": {
+            "postman_previewlanguage": "json"
+          },
+          "id": "6b880cfc-bccb-4c4a-8e3a-b1f60fc70e94",
+          "name": "Unauthorized",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "promocodes",
+                "validate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"promocode_name\": \"nulla i\",\n  \"arguments\": {\n    \"age\": 55.05607194131581,\n    \"meteo\": {\n      \"town\": \"Excepteur irure exercitation quis\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"message\": \"You are not allowed to access this resource\"\n}",
+          "cookie": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "ec615aaa-889d-4742-baf3-a84755f4d5dc",
+            "type": "text/javascript",
+            "exec": [
+              "// Validate status 2xx \npm.test(\"[POST]::/api/v1/promocodes/validate - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
+              "// Validate if response header has matching content-type\npm.test(\"[POST]::/api/v1/promocodes/validate - Content-Type is application/json\", function () {\n   pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\n});\n",
+              "// Validate if response has JSON Body \npm.test(\"[POST]::/api/v1/promocodes/validate - Response has JSON Body\", function () {\n    pm.response.to.have.jsonBody();\n});\n",
+              "// Response Validation\nconst schema = {\"type\":\"object\",\"required\":[\"promocode_name\",\"status\"],\"properties\":{\"promocode_name\":{\"type\":\"string\"},\"status\":{\"type\":\"string\",\"enum\":[\"accepted\",\"denied\"]},\"reasons\":{\"type\":\"object\"}}}\n\n// Validate if response matches JSON schema \npm.test(\"[POST]::/api/v1/promocodes/validate - Schema is valid\", function() {\n    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\"int32\", \"int64\", \"float\", \"double\"]});\n});\n"
+            ]
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:3000",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "14a2bc88-12d4-4ce9-a213-c4eb457c880d",
+    "name": "indy-tech-test",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This api allow you to add and validate promo codes",
+      "type": "text/plain"
+    }
+  }
+}

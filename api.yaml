@@ -223,7 +223,6 @@ components:
 
     meteoRestriction:
       type: object
-      additionalProperties: false
       oneOf:
         - type: object
           required:
