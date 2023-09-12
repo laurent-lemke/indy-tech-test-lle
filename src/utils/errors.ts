@@ -21,6 +21,7 @@ export class CustomError extends Error {
 export enum ErrorCode {
   PROMOCODE_ALREADY_EXISTS = "PROMOCODE_ALREADY_EXISTS",
   UNRECOGNIZED_RESTRICTION = "UNRECOGNIZED_RESTRICTION",
+  NON_EXISTING_PROMOCODE = "NON_EXISTING_PROMOCODE",
 }
 
 const createError = ({ message, code }) => {

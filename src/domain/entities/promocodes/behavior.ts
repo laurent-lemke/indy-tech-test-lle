@@ -14,7 +14,7 @@ import {
 } from "../restrictions/data";
 import { PromoCode } from "./data";
 
-import { match, P } from "ts-pattern";
+import { match } from "ts-pattern";
 
 const promoCodesDict = {};
 
@@ -55,39 +55,35 @@ export const addOneRestrictionBranch = (
   }
 
   const restrictionContent = restrictionDTO[restrictionName];
-  console.log("restrictionName is ", restrictionName);
-  console.log("restrictionContent is ", restrictionContent);
   // unfortunately Object.keys is not accurate, but it's desirable
   // see: https://github.com/Microsoft/TypeScript/issues/12870
   match(restrictionName as RestrictionName)
     .with(RestrictionName.AGE, () =>
       restrictionsArray.push(
-        new MathRestriction(
-          restrictionContent.lt,
-          restrictionContent.gt,
-          restrictionContent.eq,
-        ),
+        new MathRestriction({
+          lt: restrictionContent.lt,
+          gt: restrictionContent.gt,
+          eq: restrictionContent.eq,
+        }),
       ),
     )
     .with(RestrictionName.METEO, () =>
       restrictionsArray.push(
-        new MeteoRestriction(
-          restrictionContent?.temp?.lt,
-          restrictionContent?.temp?.gt,
-          restrictionContent?.temp?.eq,
-          WeatherType[restrictionContent.is.toUpperCase()],
-        ),
+        new MeteoRestriction({
+          lt: restrictionContent?.temp?.lt,
+          gt: restrictionContent?.temp?.gt,
+          eq: restrictionContent?.temp?.eq,
+          weather: WeatherType[restrictionContent.is.toUpperCase()],
+        }),
       ),
     )
     .with(RestrictionName.DATE, () => {
-      console.log("je suis la");
       restrictionsArray.push(
-        new DateRestriction(
-          restrictionContent.before,
-          restrictionContent.after,
-        ),
+        new DateRestriction({
+          before: restrictionContent.before,
+          after: restrictionContent.after,
+        }),
       );
-      console.log("restrictionsArray is ", restrictionsArray);
     })
     .with(RestrictionName.AND, () => {
       const andRestriction = new AndRestriction([]);

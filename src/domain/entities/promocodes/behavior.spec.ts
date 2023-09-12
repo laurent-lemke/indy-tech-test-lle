@@ -1,5 +1,13 @@
 import { AllRestrictionsDTO } from "../../dtos/add-promocode/data";
 import {
+  AndRestriction,
+  DateRestriction,
+  MathRestriction,
+  MeteoRestriction,
+  OrRestriction,
+  WeatherType,
+} from "../restrictions/data";
+import {
   addOneRestrictionBranch,
   addPromoCode,
   findPromoCode,
@@ -39,11 +47,11 @@ describe("promocodes behavior", () => {
   });
 
   describe("creating a set of restriction in a promo code from the API (DTO)", () => {
-    it.only("should create a promo code with a date restriction", () => {
+    it("should create a promo code with a date restriction", () => {
       const dateDTO: AllRestrictionsDTO = {
         "@date": {
-          after: "2022-03-03",
           before: "2023-03-03",
+          after: "2022-03-03",
         },
       };
       const restrictions = [];
@@ -52,10 +60,7 @@ describe("promocodes behavior", () => {
       addOneRestrictionBranch(dateDTO, restrictions);
 
       expect(promoCode.listRestrictions).toEqual([
-        {
-          after: "2022-03-03",
-          before: "2023-03-03",
-        },
+        new DateRestriction({ before: "2023-03-03", after: "2022-03-03" }),
       ]);
     });
 
@@ -74,18 +79,18 @@ describe("promocodes behavior", () => {
       const promoCode = new PromoCode(restrictions, "blabla", 10);
 
       addOneRestrictionBranch(meteoDTO, restrictions);
-      console.log("restrictions is ", restrictions);
+
       expect(promoCode.listRestrictions).toEqual([
-        {
-          weather: "CLOUDY",
+        new MeteoRestriction({
           gt: 10,
           lt: 11,
           eq: 12,
-        },
+          weather: WeatherType.CLOUDY,
+        }),
       ]);
     });
 
-    it.only("should create a promo code with a age restriction", () => {
+    it("should create a promo code with a age restriction", () => {
       const ageDTO: AllRestrictionsDTO = {
         "@age": {
           gt: 10,
@@ -98,11 +103,7 @@ describe("promocodes behavior", () => {
 
       addOneRestrictionBranch(ageDTO, restrictions);
       expect(promoCode.listRestrictions).toEqual([
-        {
-          gt: 10,
-          lt: 11,
-          eq: 12,
-        },
+        new MathRestriction({ gt: 10, lt: 11, eq: 12 }),
       ]);
     });
 
@@ -134,27 +135,16 @@ describe("promocodes behavior", () => {
       addOneRestrictionBranch(orDTO, restrictions);
 
       expect(promoCode.listRestrictions).toEqual([
-        {
-          _restrictionMembers: [
-            {
-              gt: 10,
-              lt: 11,
-              eq: 12,
-            },
-            {
-              _restrictionMembers: [
-                {
-                  after: "2022-03-03",
-                  before: "2023-03-03",
-                },
-              ],
-            },
-          ],
-        },
+        new OrRestriction([
+          new MathRestriction({ gt: 10, lt: 11, eq: 12 }),
+          new OrRestriction([
+            new DateRestriction({ before: "2023-03-03", after: "2022-03-03" }),
+          ]),
+        ]),
       ]);
     });
 
-    it.only("should create a promo code with a AND nested restriction", () => {
+    it("should create a promo code with a AND nested restriction", () => {
       const andDTO: AllRestrictionsDTO = {
         "@and": [
           {
@@ -182,23 +172,12 @@ describe("promocodes behavior", () => {
       addOneRestrictionBranch(andDTO, restrictions);
 
       expect(promoCode.listRestrictions).toEqual([
-        {
-          _restrictionMembers: [
-            {
-              gt: 10,
-              lt: 11,
-              eq: 12,
-            },
-            {
-              _restrictionMembers: [
-                {
-                  after: "2022-03-03",
-                  before: "2023-03-03",
-                },
-              ],
-            },
-          ],
-        },
+        new AndRestriction([
+          new MathRestriction({ gt: 10, lt: 11, eq: 12 }),
+          new AndRestriction([
+            new DateRestriction({ before: "2023-03-03", after: "2022-03-03" }),
+          ]),
+        ]),
       ]);
     });
   });

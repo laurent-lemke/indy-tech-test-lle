@@ -26,4 +26,12 @@ export class PromoCode {
   get listRestrictions() {
     return this._listRestrictions;
   }
+
+  areRestrictionsValid() {
+    const arr: boolean[] = [];
+    for (const restrictions of this.listRestrictions) {
+      arr.push(restrictions.compute());
+    }
+    return arr.every((el) => el === true);
+  }
 }
