@@ -3,7 +3,7 @@ import { PromoCode } from "./data";
 
 const promoCodesDict = {};
 
-export const addPromocode = (addedPromoCode: PromoCode) => {
+export const addPromoCode = (addedPromoCode: PromoCode) => {
   const addedPromoCodeName = addedPromoCode.name;
 
   if (checkPromoCodeExists(addedPromoCodeName)) {
@@ -18,6 +18,10 @@ export const addPromocode = (addedPromoCode: PromoCode) => {
   return addedPromoCode;
 };
 
-export const checkPromoCodeExists = (addedPromoCodeName: string) => {
+export const checkPromoCodeExists = (addedPromoCodeName: string): PromoCode => {
   return promoCodesDict[addedPromoCodeName];
+};
+
+export const cleanPromoCode = (addedPromoCodeName: string): void => {
+  promoCodesDict[addedPromoCodeName] = undefined;
 };

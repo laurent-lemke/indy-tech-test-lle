@@ -1,0 +1,10 @@
+{
+  "moduleFileExtensions": ["js", "ts", "json"],
+  "testRegex": "src/.*\\.spec.(j|t)sx?$",
+  "transform": {
+    "^.+\\.(j|t)sx?$": ["@swc/jest"]
+  },
+  "testEnvironment": "node",
+  "testPathIgnorePatterns": ["dist", "node_modules"],
+  "transformIgnorePatterns": ["node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)"]
+}
