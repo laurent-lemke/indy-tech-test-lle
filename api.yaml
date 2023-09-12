@@ -18,22 +18,22 @@ paths:
       responses:
         "200":
           description: Promo code has been succesfully added
-        "401":
-          description: "Unauthorized"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GlobalError"
-              example:
-                message: "You are not allowed to access this resource"
+                $ref: "#/components/schemas/PromcodeAddResponse"
         "400":
           description: "Bad Request"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/GlobalError"
-              example:
-                message: "Validation failed for request.."
+        "500":
+          description: "Internal error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GlobalError"
 
   /api/v1/promocodes/validate:
     post:
@@ -53,14 +53,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PromocodeValidateResponse"
-        "401":
-          description: "Unauthorized"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GlobalError"
-              example:
-                message: "You are not allowed to access this resource"
         "400":
           description: "Bad Request"
           content:
@@ -69,6 +61,12 @@ paths:
                 $ref: "#/components/schemas/GlobalError"
               example:
                 message: "Validation failed for request.."
+        "500":
+          description: "Internal error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GlobalError"
 
 components:
   schemas:
@@ -77,6 +75,8 @@ components:
         - message
       properties:
         message:
+          type: string
+        code:
           type: string
 
     PromocodeValidateBody:
@@ -142,6 +142,8 @@ components:
           type: string
         "avantage":
           type: object
+          required:
+            - percent
           properties:
             "percent":
               type: integer
@@ -259,3 +261,9 @@ components:
           properties:
             "lt":
               type: number
+
+    PromcodeAddResponse:
+      type: object
+      properties:
+        "name":
+          type: string

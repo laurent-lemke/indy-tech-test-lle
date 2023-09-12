@@ -21,7 +21,6 @@ export const transformErrorToHttpCode = (
   res: Response,
   next: NextFunction,
 ) => {
-  console.log("allo ?");
   const status =
     STATUSES_PER_CODE[err.code] ?? StatusCodes.INTERNAL_SERVER_ERROR;
   const errorMessage = err.message;
