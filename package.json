@@ -27,6 +27,9 @@
     "clean:all": "npm run clean && (rm -r ./node_modules || true)",
     "cover": "nyc npm run test",
     "cover:check": "nyc --check-coverage --reporter=lcov npm run test",
+    "format": "prettier \"**/*.{js,ts,json,md,yaml,yml}\"",
+    "format:ci": "yarn format --check",
+    "format:fix": "yarn format --write",
     "lint": "eslint --ext .ts --fix src/**/*.ts test/**/*.ts",
     "prepare": "npm run build && husky install",
     "run:dev": "nodemon ./src/index.ts",
@@ -66,6 +69,7 @@
     "express-session": "^1.17.3",
     "http-status-codes": "^2.2.0",
     "swagger-ui-express": "^5.0.0",
+    "ts-pattern": "^5.0.5",
     "yaml": "^2.3.2"
   }
 }

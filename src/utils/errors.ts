@@ -20,6 +20,7 @@ export class CustomError extends Error {
 
 export enum ErrorCode {
   PROMOCODE_ALREADY_EXISTS = "PROMOCODE_ALREADY_EXISTS",
+  UNRECOGNIZED_RESTRICTION = "UNRECOGNIZED_RESTRICTION",
 }
 
 const createError = ({ message, code }) => {

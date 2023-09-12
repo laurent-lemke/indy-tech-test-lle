@@ -4,6 +4,9 @@ import { CustomError, ErrorCode } from "../../../utils/errors";
 
 const STATUSES_PER_CODE = {
   [ErrorCode.PROMOCODE_ALREADY_EXISTS]: StatusCodes.CONFLICT,
+  // every bad request should be considered as useless since it's the open api middleware
+  // that performs the validation
+  [ErrorCode.UNRECOGNIZED_RESTRICTION]: StatusCodes.BAD_REQUEST,
 };
 
 /**
