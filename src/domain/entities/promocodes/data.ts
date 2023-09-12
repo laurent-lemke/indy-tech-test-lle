@@ -27,7 +27,7 @@ export class PromoCode {
     return this._listRestrictions;
   }
 
-  areRestrictionsValid() {
+  isOkToApply(): boolean {
     const arr: boolean[] = [];
     for (const restrictions of this.listRestrictions) {
       arr.push(restrictions.compute());

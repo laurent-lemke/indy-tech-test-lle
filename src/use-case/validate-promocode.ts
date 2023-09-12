@@ -25,7 +25,7 @@ export function validatePromoCode(promoCodeToValidate: ValidatePromoCodeDTO) {
   };
 
   asyncLocalStorage.run(localStoredValue, () => {
-    // here we will retrieve the meteo
-    foundPromoCode.areRestrictionsValid();
+    // here we will retrieve the meteo and somehow override the local storage
+    foundPromoCode.isOkToApply();
   });
 }

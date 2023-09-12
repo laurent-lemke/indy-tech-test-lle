@@ -14,7 +14,20 @@ export class DateRestriction implements UnitOfComputation {
   }
 
   compute(): boolean {
-    return true;
+    const { date } = asyncLocalStorage.getStore() as LocalStorageContent;
+    if (date) {
+      const afterTime = this.after.getTime();
+      const beforeTime = this.before.getTime();
+      const dateValTime = date.getTime();
+
+      if (beforeTime > dateValTime && afterTime < dateValTime) {
+        return true;
+      }
+
+      return false;
+    }
+
+    return false;
   }
 }
 
@@ -29,7 +42,7 @@ export class MathRestriction implements UnitOfComputation {
   private gt?: number;
   private eq?: number;
 
-  constructor({ lt, gt, eq }: { lt: number; gt: number; eq: number }) {
+  constructor({ lt, gt, eq }: { lt?: number; gt?: number; eq?: number }) {
     this.lt = lt;
     this.gt = gt;
     this.eq = eq;
@@ -44,10 +57,10 @@ export class MathRestriction implements UnitOfComputation {
   }
 
   computeNumber(val: number) {
-    if (this.lt && val > this.lt) {
+    if (this.lt && val >= this.lt) {
       return false;
     }
-    if (this.gt && val < this.gt) {
+    if (this.gt && val <= this.gt) {
       return false;
     }
     if (this.eq && val !== this.eq) {
@@ -70,9 +83,9 @@ export class MeteoRestriction
     eq,
     weather,
   }: {
-    lt: number;
-    gt: number;
-    eq: number;
+    lt?: number;
+    gt?: number;
+    eq?: number;
     weather: WeatherType;
   }) {
     super({ lt, gt, eq });
@@ -81,7 +94,6 @@ export class MeteoRestriction
 
   compute(): boolean {
     return true;
-    // const {  } = asyncLocalStorage.getStore() as LocalStorageContent;
   }
 }
 
@@ -97,7 +109,13 @@ export class OrRestriction implements UnitOfComputation {
   }
 
   compute(): boolean {
-    return true;
+    for (const restrictions of this.restrictionMembers) {
+      if (restrictions.compute()) {
+        console.log("??>> ", restrictions);
+        return true;
+      }
+    }
+    return false;
   }
 }
 
@@ -113,6 +131,11 @@ export class AndRestriction implements UnitOfComputation {
   }
 
   compute(): boolean {
+    for (const restrictions of this.restrictionMembers) {
+      if (restrictions.compute() === false) {
+        return false;
+      }
+    }
     return true;
   }
 }
