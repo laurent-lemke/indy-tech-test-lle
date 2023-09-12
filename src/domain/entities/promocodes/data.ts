@@ -2,7 +2,7 @@ import { UnitOfComputation } from "../restrictions/behavior";
 
 export class PromoCode {
   private _listRestrictions: UnitOfComputation[];
-  private name: string;
+  private _name: string;
   private _avantage: number;
 
   constructor(
@@ -11,7 +11,7 @@ export class PromoCode {
     avantage: number,
   ) {
     this._listRestrictions = listRestrictions;
-    this.name = name.toLowerCase();
+    this._name = name.toLowerCase();
     this._avantage = avantage;
   }
 
@@ -19,8 +19,8 @@ export class PromoCode {
     return this._avantage;
   }
 
-  hasName(providedName: string): boolean {
-    return providedName.toLowerCase() === this.name;
+  get name() {
+    return this._name;
   }
 
   get listRestrictions() {

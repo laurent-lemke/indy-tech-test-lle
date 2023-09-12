@@ -5,10 +5,10 @@
  * @returns Create error from the provided configuration
  */
 
-class CustomError extends Error {
+export class CustomError extends Error {
   private _code: string;
 
-  constructor(message: string, code: string) {
+  constructor(message: string, code: ErrorCode) {
     super(message);
     this._code = code;
   }
@@ -16,6 +16,10 @@ class CustomError extends Error {
   get code() {
     return this._code;
   }
+}
+
+export enum ErrorCode {
+  PROMOCODE_ALREADY_EXISTS = "PROMOCODE_ALREADY_EXISTS",
 }
 
 const createError = ({ message, code }) => {

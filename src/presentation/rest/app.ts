@@ -8,6 +8,7 @@ import YAML from "yaml";
 import swaggerUi from "swagger-ui-express";
 import { readFileSync } from "node:fs";
 import promocodes from "./promocodes";
+import { transformErrorToHttpCode } from "./utils/error";
 
 const createLocalServer = (app: Express, ip: string, port: number) => {
   // we could use https but this would requires to create self-signed certificate.
@@ -81,4 +82,5 @@ export const startWebserver = async (ip: string, port: number) => {
   setupOpenApi(app);
   createLocalServer(app, ip, port);
   initRoutes(app);
+  app.use(transformErrorToHttpCode);
 };

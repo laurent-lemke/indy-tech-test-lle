@@ -1,5 +1,5 @@
-import { startWebserver } from "./presentation/rest/app";
 import "dotenv/config";
+import { startWebserver } from "./presentation/rest/app";
 
 const DEFAULT_PORT = 3000;
 
