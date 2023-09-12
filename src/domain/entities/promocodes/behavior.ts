@@ -19,9 +19,10 @@ import { match, P } from "ts-pattern";
 const promoCodesDict = {};
 
 export const addPromoCode = (addedPromoCode: PromoCode) => {
+  console.log("promoCodesDict is ", promoCodesDict);
   const addedPromoCodeName = addedPromoCode.name;
 
-  if (checkPromoCodeExists(addedPromoCodeName)) {
+  if (findPromoCode(addedPromoCodeName)) {
     throw new CustomError(
       "A promocode with the same name already exists",
       ErrorCode.PROMOCODE_ALREADY_EXISTS,
@@ -33,7 +34,7 @@ export const addPromoCode = (addedPromoCode: PromoCode) => {
   return addedPromoCode;
 };
 
-export const checkPromoCodeExists = (addedPromoCodeName: string): PromoCode => {
+export const findPromoCode = (addedPromoCodeName: string): PromoCode => {
   return promoCodesDict[addedPromoCodeName];
 };
 

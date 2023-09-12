@@ -1,13 +1,14 @@
 import express, { Request, Response } from "express";
 import StatusCodes from "http-status-codes";
-import { CustomError, ErrorCode } from "../../../utils/errors";
+import { storePromoCode } from "../../../use-case/store-promocode";
+import { AddPromoCodeDTO } from "../../../domain/dtos/add-promocode/data";
 
 const router = express.Router();
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const add = (_req: Request, _res: Response) => {
-  throw new CustomError("aa", ErrorCode.PROMOCODE_ALREADY_EXISTS);
-  // res.status(StatusCodes.OK).send({});
+const add = (req: Request, res: Response) => {
+  const promoCodeToAdd = req.body as AddPromoCodeDTO;
+  storePromoCode(promoCodeToAdd);
+  res.status(StatusCodes.OK).send({ name: promoCodeToAdd.name });
 };
 
 const validate = (_req: Request, res: Response) => {

@@ -2,7 +2,7 @@ import { AllRestrictionsDTO } from "../../dtos/add-promocode/data";
 import {
   addOneRestrictionBranch,
   addPromoCode,
-  checkPromoCodeExists,
+  findPromoCode,
   cleanPromoCode,
 } from "./behavior";
 import { PromoCode } from "./data";
@@ -30,11 +30,11 @@ describe("promocodes behavior", () => {
 
     it("should ensure that the promo code exists when it has been previously added", () => {
       addPromoCode(promoCode);
-      expect(checkPromoCodeExists(promoCode.name)).toEqual(promoCode);
+      expect(findPromoCode(promoCode.name)).toEqual(promoCode);
     });
 
     it("should not have an existing promo code when it has not been added", () => {
-      expect(checkPromoCodeExists(promoCode.name)).toBeUndefined;
+      expect(findPromoCode(promoCode.name)).toBeUndefined;
     });
   });
 
