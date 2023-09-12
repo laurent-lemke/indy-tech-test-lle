@@ -3,7 +3,7 @@ import {
   RestrictionName,
 } from "../../dtos/add-promocode/data";
 import { CustomError, ErrorCode } from "../../../utils/errors";
-import { UnitOfComputation } from "../restrictions/behavior";
+import { UnitOfValidation } from "../restrictions/behavior";
 import {
   DateRestriction,
   MeteoRestriction,
@@ -44,7 +44,7 @@ export const cleanPromoCode = (addedPromoCodeName: string): void => {
 
 export const addOneRestrictionBranch = (
   restrictionDTO: AllRestrictionsDTO,
-  restrictionsArray: UnitOfComputation[],
+  restrictionsArray: UnitOfValidation[],
 ): void => {
   const [restrictionName] = Object.keys(restrictionDTO);
   if (!restrictionName) {

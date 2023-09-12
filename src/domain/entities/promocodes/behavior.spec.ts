@@ -67,7 +67,7 @@ describe("promocodes behavior", () => {
     it("should create a promo code with a meteo restriction", () => {
       const meteoDTO: AllRestrictionsDTO = {
         "@meteo": {
-          is: "CLOUDY",
+          is: "CLOUDS",
           temp: {
             gt: 10,
             lt: 11,
@@ -85,7 +85,7 @@ describe("promocodes behavior", () => {
           gt: 10,
           lt: 11,
           eq: 12,
-          weather: WeatherType.CLOUDY,
+          weather: WeatherType.CLOUDS,
         }),
       ]);
     });

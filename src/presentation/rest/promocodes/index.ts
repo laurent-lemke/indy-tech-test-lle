@@ -13,10 +13,11 @@ const add = (req: Request, res: Response) => {
   res.status(StatusCodes.OK).send({ name: promoCodeToAdd.name });
 };
 
-const validate = (req: Request, res: Response) => {
+const validate = async (req: Request, res: Response) => {
   const promoCodeToValidate = req.body as ValidatePromoCodeDTO;
-  validatePromoCode(promoCodeToValidate);
-  res.status(StatusCodes.OK).send({});
+  const status = await validatePromoCode(promoCodeToValidate);
+  console.log("status is ", status);
+  res.status(StatusCodes.OK).send({ isValid: status });
 };
 
 router.post("/", add);

@@ -1,3 +1,3 @@
-export interface UnitOfComputation {
-  compute(): boolean;
+export interface UnitOfValidation {
+  isValid(): boolean;
 }

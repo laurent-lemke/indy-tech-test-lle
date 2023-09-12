@@ -4,6 +4,9 @@ import { CustomError, ErrorCode } from "../../../utils/errors";
 
 const STATUSES_PER_CODE = {
   [ErrorCode.PROMOCODE_ALREADY_EXISTS]: StatusCodes.CONFLICT,
+  [ErrorCode.MISSING_API_KEY]: StatusCodes.SERVICE_UNAVAILABLE,
+  [ErrorCode.METEO_CITY_PROBLEM]: StatusCodes.INTERNAL_SERVER_ERROR,
+  [ErrorCode.METEO_CITY_NOT_FOUND]: StatusCodes.BAD_REQUEST,
   // every bad request should be considered as useless since it's the open api middleware
   // that performs the validation
   [ErrorCode.UNRECOGNIZED_RESTRICTION]: StatusCodes.BAD_REQUEST,

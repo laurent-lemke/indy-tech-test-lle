@@ -1,12 +1,16 @@
-import { UnitOfComputation } from "../restrictions/behavior";
+import { UnitOfValidation } from "../restrictions/behavior";
 
+enum PromocodeValidatedStatus {
+  ACCEPTED = "ACCEPTED",
+  DENIED = "DENIED",
+}
 export class PromoCode {
-  private _listRestrictions: UnitOfComputation[];
+  private _listRestrictions: UnitOfValidation[];
   private _name: string;
   private _avantage: number;
 
   constructor(
-    listRestrictions: UnitOfComputation[],
+    listRestrictions: UnitOfValidation[],
     name: string,
     avantage: number,
   ) {
@@ -30,8 +34,20 @@ export class PromoCode {
   isOkToApply(): boolean {
     const arr: boolean[] = [];
     for (const restrictions of this.listRestrictions) {
-      arr.push(restrictions.compute());
+      arr.push(restrictions.isValid());
     }
     return arr.every((el) => el === true);
+  }
+
+  isOkToApply2() {
+    const arr: boolean[] = [];
+    for (const restrictions of this.listRestrictions) {
+      arr.push(restrictions.isValid());
+    }
+    const resultBool = arr.every((el) => el === true);
+
+    const status = resultBool
+      ? PromocodeValidatedStatus.ACCEPTED
+      : PromocodeValidatedStatus.DENIED;
   }
 }

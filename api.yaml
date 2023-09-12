@@ -232,7 +232,16 @@ components:
           properties:
             "is":
               type: string
-              enum: ["clear", "cloudy", "rain"]
+              enum:
+                [
+                  "Thunderstorm",
+                  "Drizzle",
+                  "Rain",
+                  "Snow",
+                  "Atmosphere",
+                  "Clear",
+                  "Clouds",
+                ]
         - type: object
           required:
             - "temp"

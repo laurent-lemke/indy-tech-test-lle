@@ -2,9 +2,9 @@ import {
   LocalStorageContent,
   asyncLocalStorage,
 } from "../../../utils/asyncLocalStorage";
-import { UnitOfComputation } from "./behavior";
+import { UnitOfValidation } from "./behavior";
 
-export class DateRestriction implements UnitOfComputation {
+export class DateRestriction implements UnitOfValidation {
   private after: Date;
   private before: Date;
 
@@ -13,7 +13,7 @@ export class DateRestriction implements UnitOfComputation {
     this.before = new Date(before);
   }
 
-  compute(): boolean {
+  isValid(): boolean {
     const { date } = asyncLocalStorage.getStore() as LocalStorageContent;
     if (date) {
       const afterTime = this.after.getTime();
@@ -32,12 +32,16 @@ export class DateRestriction implements UnitOfComputation {
 }
 
 export enum WeatherType {
-  CLOUDY = "CLOUDY",
-  CLEAR = "CLEAR",
+  THUNDERSTORM = "THUNDERSTORM",
+  DRIZZLE = "DRIZZLE",
   RAIN = "RAIN",
+  SNOW = "SNOW",
+  ATMOSPHERE = "ATMOSPHERE",
+  CLEAR = "CLEAR",
+  CLOUDS = "CLOUDS",
 }
 
-export class MathRestriction implements UnitOfComputation {
+export class MathRestriction implements UnitOfValidation {
   private lt?: number;
   private gt?: number;
   private eq?: number;
@@ -48,7 +52,7 @@ export class MathRestriction implements UnitOfComputation {
     this.eq = eq;
   }
 
-  compute(): boolean {
+  isValid(): boolean {
     const { age } = asyncLocalStorage.getStore() as LocalStorageContent;
     if (age) {
       return this.computeNumber(age);
@@ -73,9 +77,9 @@ export class MathRestriction implements UnitOfComputation {
 
 export class MeteoRestriction
   extends MathRestriction
-  implements UnitOfComputation
+  implements UnitOfValidation
 {
-  private weather?: WeatherType;
+  private weatherType?: WeatherType;
 
   constructor({
     lt,
@@ -89,18 +93,33 @@ export class MeteoRestriction
     weather: WeatherType;
   }) {
     super({ lt, gt, eq });
-    this.weather = weather;
+    this.weatherType = weather;
   }
 
-  compute(): boolean {
-    return true;
+  isValid(): boolean {
+    const { meteoTemperature, meteoCondition } =
+      asyncLocalStorage.getStore() as LocalStorageContent;
+
+    if (meteoTemperature && meteoCondition) {
+      if (this.computeNumber(meteoTemperature) === false) {
+        return false;
+      }
+
+      if (this.weatherType !== WeatherType[meteoCondition.toUpperCase()]) {
+        return false;
+      }
+
+      return true;
+    }
+
+    return false;
   }
 }
 
-export class OrRestriction implements UnitOfComputation {
-  private _restrictionMembers: UnitOfComputation[];
+export class OrRestriction implements UnitOfValidation {
+  private _restrictionMembers: UnitOfValidation[];
 
-  constructor(restrictionMembers: UnitOfComputation[]) {
+  constructor(restrictionMembers: UnitOfValidation[]) {
     this._restrictionMembers = restrictionMembers;
   }
 
@@ -108,10 +127,9 @@ export class OrRestriction implements UnitOfComputation {
     return this._restrictionMembers;
   }
 
-  compute(): boolean {
-    for (const restrictions of this.restrictionMembers) {
-      if (restrictions.compute()) {
-        console.log("??>> ", restrictions);
+  isValid(): boolean {
+    for (const restriction of this.restrictionMembers) {
+      if (restriction.isValid()) {
         return true;
       }
     }
@@ -119,10 +137,10 @@ export class OrRestriction implements UnitOfComputation {
   }
 }
 
-export class AndRestriction implements UnitOfComputation {
-  private _restrictionMembers: UnitOfComputation[];
+export class AndRestriction implements UnitOfValidation {
+  private _restrictionMembers: UnitOfValidation[];
 
-  constructor(restrictionMembers: UnitOfComputation[]) {
+  constructor(restrictionMembers: UnitOfValidation[]) {
     this._restrictionMembers = restrictionMembers;
   }
 
@@ -130,9 +148,9 @@ export class AndRestriction implements UnitOfComputation {
     return this._restrictionMembers;
   }
 
-  compute(): boolean {
-    for (const restrictions of this.restrictionMembers) {
-      if (restrictions.compute() === false) {
+  isValid(): boolean {
+    for (const restriction of this.restrictionMembers) {
+      if (restriction.isValid() === false) {
         return false;
       }
     }

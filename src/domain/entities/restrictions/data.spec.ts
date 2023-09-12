@@ -2,7 +2,9 @@ import {
   AndRestriction,
   DateRestriction,
   MathRestriction,
+  MeteoRestriction,
   OrRestriction,
+  WeatherType,
 } from "./data";
 import { asyncLocalStorage } from "../../../utils/asyncLocalStorage";
 
@@ -11,6 +13,7 @@ jest.mock("../../../utils/asyncLocalStorage");
 const mockedAsyncLocalStorage = jest.mocked(asyncLocalStorage, {
   shallow: true,
 });
+
 describe("restrictions data", () => {
   describe("Date restriction data ", () => {
     beforeEach(() => {});
@@ -18,7 +21,8 @@ describe("restrictions data", () => {
 
     const testsCases = [
       {
-        itMsg: "With a date that is between the 'before' and 'after' ones",
+        itMsg:
+          "is valid with a date that is between the 'before' and 'after' ones",
         given: {
           date: new Date("2023-01-01"),
           beforeRestriction: "2023-01-02",
@@ -27,7 +31,7 @@ describe("restrictions data", () => {
         expected: true,
       },
       {
-        itMsg: "With a date that is not 'before'",
+        itMsg: "is NOT valid with a date that is too recent",
         given: {
           date: new Date("2023-01-01"),
           beforeRestriction: "2022-01-02",
@@ -36,7 +40,7 @@ describe("restrictions data", () => {
         expected: false,
       },
       {
-        itMsg: "With a date that is not 'after'",
+        itMsg: "is NOT valid with a date that is too old",
         given: {
           date: new Date("2020-01-01"),
           beforeRestriction: "2023-01-02",
@@ -54,7 +58,61 @@ describe("restrictions data", () => {
         after: given.afterRestriction,
       });
 
-      expect(restriction.compute()).toEqual(expected);
+      expect(restriction.isValid()).toEqual(expected);
+    });
+  });
+
+  describe.only("Meteo restriction data ", () => {
+    beforeEach(() => {});
+    afterEach(() => {});
+
+    const testsCases = [
+      {
+        itMsg: "is valid with a weather condition and temperature that match",
+        given: {
+          meteoCondition: "Rain",
+          meteoTemperature: 32.1,
+          weatherTypeRestriction: WeatherType.RAIN,
+          gtRestriction: 32,
+        },
+        expected: true,
+      },
+      {
+        itMsg:
+          "is NOT valid with a weather condition that match but not the temperature",
+        given: {
+          meteoCondition: "Rain",
+          meteoTemperature: 32.1,
+          weatherTypeRestriction: WeatherType.RAIN,
+          gtRestriction: 33,
+        },
+        expected: false,
+      },
+      {
+        itMsg:
+          "is NOT valid with a weather temperature that match but not the weather condition",
+        given: {
+          meteoCondition: "Rain",
+          meteoTemperature: 32.1,
+          weatherTypeRestriction: WeatherType.CLEAR,
+          gtRestriction: 30,
+        },
+        expected: false,
+      },
+    ];
+
+    it.each(testsCases)("$itMsg", ({ given, expected }) => {
+      mockedAsyncLocalStorage.getStore.mockReturnValue({
+        meteoCondition: given.meteoCondition,
+        meteoTemperature: given.meteoTemperature,
+      });
+
+      const restriction = new MeteoRestriction({
+        weather: given.weatherTypeRestriction,
+        gt: given.gtRestriction,
+      });
+
+      expect(restriction.isValid()).toEqual(expected);
     });
   });
 
@@ -65,7 +123,7 @@ describe("restrictions data", () => {
     const testsCases = [
       {
         itMsg:
-          "With a age that is correctly lesser/greater than the ones in the restriction",
+          "is valid with a age that is correctly lesser/greater than the ones in the restriction",
         given: {
           age: 10,
           ltRestriction: 11,
@@ -76,7 +134,7 @@ describe("restrictions data", () => {
       },
       {
         itMsg:
-          "With a age that is correctly equals than the one in the restriction",
+          "is valid ith a age that is correctly equals to the one in the restriction",
         given: {
           age: 10,
           ltRestriction: undefined,
@@ -86,7 +144,8 @@ describe("restrictions data", () => {
         expected: true,
       },
       {
-        itMsg: "With a age that is not correct",
+        itMsg:
+          "is NOT valid with a age that is not equals to the one in the restriction",
         given: {
           age: 10,
           gtRestriction: undefined,
@@ -106,12 +165,12 @@ describe("restrictions data", () => {
         eq: given.eqRestriction,
       });
 
-      expect(restriction.compute()).toEqual(expected);
+      expect(restriction.isValid()).toEqual(expected);
     });
   });
 
   describe("Or restriction data", () => {
-    it("With an age that is lesser than but NOT greater than", () => {
+    it("is valid with an age that is lesser but NOT greater than these in the restriction", () => {
       const ageRestriction = new MathRestriction({ lt: 11 });
       const ageRestriction2 = new MathRestriction({ gt: 12 });
 
@@ -124,10 +183,10 @@ describe("restrictions data", () => {
         ageRestriction2,
       ]);
 
-      expect(orRestriction.compute()).toEqual(true);
+      expect(orRestriction.isValid()).toEqual(true);
     });
 
-    it("with an age this neither lesser nor greater than", () => {
+    it("is NOT valid with an age this neither lesser nor greater than the ones in the restriction", () => {
       const ageRestriction = new MathRestriction({ lt: 11 });
       const ageRestriction2 = new MathRestriction({ gt: 12 });
 
@@ -140,12 +199,12 @@ describe("restrictions data", () => {
         ageRestriction2,
       ]);
 
-      expect(orRestriction.compute()).toEqual(false);
+      expect(orRestriction.isValid()).toEqual(false);
     });
   });
 
-  describe.only("AND restriction data", () => {
-    it("With an age that is correctly between two", () => {
+  describe("AND restriction data", () => {
+    it("is valid with an age that is correctly between two", () => {
       const ageRestriction = new MathRestriction({ lt: 11 });
       const ageRestriction2 = new MathRestriction({ gt: 9 });
 
@@ -158,10 +217,10 @@ describe("restrictions data", () => {
         ageRestriction2,
       ]);
 
-      expect(andRestriction.compute()).toEqual(true);
+      expect(andRestriction.isValid()).toEqual(true);
     });
 
-    it("with an age that is greater but NOT lesser than", () => {
+    it("is NOT valid with an age that is greater but NOT lesser than", () => {
       const ageRestriction = new MathRestriction({ lt: 11 });
       const ageRestriction2 = new MathRestriction({ gt: 9 });
 
@@ -174,7 +233,7 @@ describe("restrictions data", () => {
         ageRestriction2,
       ]);
 
-      expect(andRestriction.compute()).toEqual(false);
+      expect(andRestriction.isValid()).toEqual(false);
     });
   });
 });
