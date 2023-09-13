@@ -11,3 +11,5 @@ yarn-*.log
 collection.postman.json
 
 tmp/
+
+.env

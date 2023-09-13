@@ -1,8 +1,7 @@
 import { CustomError, ErrorCode } from "../../../utils/errors";
 import fetch from "node-fetch";
 import { Weather, WeatherCondition, WeatherProvider } from "../weather";
-// const API_KEY = process.env.OPENWEATHER_API_KEY;
-const API_KEY = "d0562f476913da692a065c608d0539f6";
+const API_KEY = process.env.OPENWEATHER_API_KEY;
 
 interface Coordinate {
   name: string;
