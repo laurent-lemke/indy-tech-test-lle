@@ -1,6 +1,6 @@
 {
   "local": "api.yaml",
-  "output": "collection.postman.json",
+  "output": "generate-collection-from-portman.json",
   "includeTests": true,
   "runNewman": true,
   "ignoreCircularRefs": true,
