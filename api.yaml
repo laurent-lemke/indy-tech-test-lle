@@ -71,13 +71,17 @@ paths:
 components:
   schemas:
     GlobalError:
-      required:
-        - message
+      type: object
       properties:
-        message:
-          type: string
-        code:
-          type: string
+        "error":
+          type: object
+          required:
+            - message
+          properties:
+            message:
+              type: string
+            code:
+              type: string
 
     PromocodeValidateBody:
       type: object
@@ -88,6 +92,10 @@ components:
           type: string
         arguments:
           $ref: "#/components/schemas/PromocodeArgumentsBody"
+      example:
+        promocode_name: "toto"
+        arguments:
+          age: 10
 
     PromocodeArgumentsBody:
       type: object
@@ -117,22 +125,43 @@ components:
           type: string
         status:
           type: string
-          enum: ["accepted", "denied"]
-        reasons:
+          enum: ["ACCEPTED", "DENIED"]
+        "avantage":
           type: object
+          required:
+            - percent
+          properties:
+            "percent":
+              type: number
+        reasons:
+          $ref: "#/components/schemas/reasons"
 
     reasons:
       type: object
       properties:
         meteo:
-          type: string
+          $ref: "#/components/schemas/reasonIsValid"
         date:
-          type: string
+          $ref: "#/components/schemas/reasonIsValid"
         age:
-          type: string
+          $ref: "#/components/schemas/reasonIsValid"
+
+    reasonIsValid:
+      type: object
+      properties:
+        isValid:
+          type: boolean
 
     PromoCodeAddBody:
       type: object
+      example:
+        name: "toto"
+        avantage:
+          percent: 50
+        restrictions:
+          - "@age":
+              "gt": 1
+
       required:
         - name
         - avantage
@@ -181,16 +210,16 @@ components:
       anyOf:
         - type: object
           required:
-            - "@meteo"
-          properties:
-            "@meteo":
-              $ref: "#/components/schemas/meteoRestriction"
-        - type: object
-          required:
             - "@age"
           properties:
             "@age":
               $ref: "#/components/schemas/mathRestriction"
+        - type: object
+          required:
+            - "@meteo"
+          properties:
+            "@meteo":
+              $ref: "#/components/schemas/meteoRestriction"
         - type: object
           required:
             - "@date"
@@ -254,15 +283,15 @@ components:
       anyOf:
         - type: object
           required:
-            - "eq"
-          properties:
-            "eq":
-              type: number
-        - type: object
-          required:
             - "gt"
           properties:
             "gt":
+              type: number
+        - type: object
+          required:
+            - "eq"
+          properties:
+            "eq":
               type: number
         - type: object
           required:

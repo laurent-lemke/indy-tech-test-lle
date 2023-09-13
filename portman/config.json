@@ -1,0 +1,122 @@
+{
+  "tests": {
+    "contractTests": [
+      {
+        "openApiOperation": "*::/*",
+        "statusSuccess": {
+          "enabled": true
+        },
+        "contentType": {
+          "enabled": true
+        },
+        "jsonBody": {
+          "enabled": true
+        },
+        "schemaValidation": {
+          "enabled": true
+        }
+      }
+    ],
+    "variationTests": [
+      {
+        "openApiOperationId": "addPromoCode",
+        "openApiResponse": "400",
+        "variations": [
+          {
+            "name": "wrong name Param",
+            "overwrites": [
+              {
+                "overwriteRequestBody": [
+                  {
+                    "key": "name",
+                    "value": 123,
+                    "overwrite": true
+                  }
+                ]
+              }
+            ],
+            "tests": {
+              "contractTests": [
+                {
+                  "statusCode": {
+                    "enabled": true
+                  },
+                  "jsonBody": {
+                    "enabled": true
+                  },
+                  "schemaValidation": {
+                    "enabled": true
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "wrong avantage.percent Param",
+            "overwrites": [
+              {
+                "overwriteRequestBody": [
+                  {
+                    "key": "avantage.percent",
+                    "value": "123",
+                    "overwrite": true
+                  }
+                ]
+              }
+            ],
+            "tests": {
+              "contractTests": [
+                {
+                  "statusCode": {
+                    "enabled": true
+                  },
+                  "jsonBody": {
+                    "enabled": true
+                  },
+                  "schemaValidation": {
+                    "enabled": true
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "openApiOperationId": "validatePromocode",
+        "openApiResponse": "400",
+        "variations": [
+          {
+            "name": "wrong promocode_name Param",
+            "overwrites": [
+              {
+                "overwriteRequestBody": [
+                  {
+                    "key": "promocode_name",
+                    "value": 123,
+                    "overwrite": true
+                  }
+                ]
+              }
+            ],
+            "tests": {
+              "contractTests": [
+                {
+                  "statusCode": {
+                    "enabled": true
+                  },
+                  "jsonBody": {
+                    "enabled": true
+                  },
+                  "schemaValidation": {
+                    "enabled": true
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -19,19 +19,25 @@ const STATUSES_PER_CODE = {
  * @param Error The error message that will be used to create the http response error
  */
 export const transformErrorToHttpCode = async (
-  err: CustomError,
+  err: CustomError | (Error & { status?: number }),
   _req: Request,
   res: Response,
   next: NextFunction,
 ) => {
-  const status =
-    STATUSES_PER_CODE[err.code] ?? StatusCodes.INTERNAL_SERVER_ERROR;
-  const errorMessage = err.message;
+  let status: number;
+  let code: string | undefined;
+
+  if (err instanceof CustomError) {
+    status = STATUSES_PER_CODE[err.code] ?? StatusCodes.INTERNAL_SERVER_ERROR;
+    code = err.code;
+  } else {
+    status = err.status ?? StatusCodes.INTERNAL_SERVER_ERROR;
+  }
 
   res.status(status).json({
     error: {
-      code: err.code,
-      message: errorMessage,
+      code,
+      message: err.message,
     },
   });
   // useless but allow to not set a eslint by-pass

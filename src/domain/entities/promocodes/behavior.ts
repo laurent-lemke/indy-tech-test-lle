@@ -108,7 +108,7 @@ export const addOneRestrictionBranch = (
 };
 
 export interface PromoCodeValidityResponse {
-  name: string;
+  promocode_name: string;
   status: PromocodeValidatedStatus;
   avantage?: {
     percent: number;
@@ -116,7 +116,9 @@ export interface PromoCodeValidityResponse {
   reasons?: Record<string, { isValid: boolean }>;
 }
 
-export const checkPromoCodeValidity = (promoCodeName: string) => {
+export const checkPromoCodeValidity = (
+  promoCodeName: string,
+): PromoCodeValidityResponse => {
   const foundPromoCode = findPromoCode(promoCodeName);
 
   if (!foundPromoCode) {
@@ -151,7 +153,7 @@ export const checkPromoCodeValidity = (promoCodeName: string) => {
   }
 
   return {
-    name: foundPromoCode.name,
+    promocode_name: foundPromoCode.name,
     avantage,
     status,
     reasons: reasons,

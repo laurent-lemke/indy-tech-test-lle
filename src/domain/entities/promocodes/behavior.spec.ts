@@ -207,7 +207,7 @@ describe("promocodes behavior", () => {
       const validityResult = checkPromoCodeValidity(PROMO_CODE_NAME);
 
       expect(validityResult).toEqual({
-        name: PROMO_CODE_NAME,
+        promocode_name: PROMO_CODE_NAME,
         avantage: { percent: 100 },
         status: "ACCEPTED",
       });
@@ -245,7 +245,7 @@ describe("promocodes behavior", () => {
       const validityResult = checkPromoCodeValidity(PROMO_CODE_NAME);
 
       expect(validityResult).toEqual({
-        name: PROMO_CODE_NAME,
+        promocode_name: PROMO_CODE_NAME,
         status: "DENIED",
         reasons: {
           age: {

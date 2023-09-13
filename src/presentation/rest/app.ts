@@ -71,7 +71,7 @@ const initRoutes = (app: Express) => {
   ];
   for (const path of PATHS) {
     app.use(path.path, path.router);
-    // app.use(transformErrorToHttpCode);
+    app.use(transformErrorToHttpCode);
   }
 };
 

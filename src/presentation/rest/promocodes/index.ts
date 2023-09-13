@@ -4,7 +4,6 @@ import { storePromoCode } from "../../../use-case/store-promocode";
 import { AddPromoCodeDTO } from "../../../domain/dtos/add-promocode/data";
 import { ValidatePromoCodeDTO } from "../../../domain/dtos/validate-promocode/data";
 import { validatePromoCode } from "../../../use-case/validate-promocode";
-import { transformErrorToHttpCode } from "../utils/error";
 import asyncHandler from "express-async-handler";
 
 const router = express.Router();
@@ -27,8 +26,7 @@ const validate = asyncHandler(async (req: Request, res: Response) => {
 
   res.status(statusCode).send(validationResponse);
 });
-router.use(transformErrorToHttpCode);
-router.post("/", add, transformErrorToHttpCode);
-router.post("/validate", validate, transformErrorToHttpCode);
+router.post("/", add);
+router.post("/validate", validate);
 
 export default router;

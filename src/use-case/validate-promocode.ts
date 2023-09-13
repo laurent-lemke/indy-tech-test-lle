@@ -4,7 +4,6 @@ import {
 } from "../utils/asyncLocalStorage";
 import { ValidatePromoCodeDTO } from "../domain/dtos/validate-promocode/data";
 import {
-  findPromoCode,
   PromoCodeValidityResponse,
   checkPromoCodeValidity,
 } from "../domain/entities/promocodes/behavior";
