@@ -1,5 +1,3 @@
-
-
 export class CustomError extends Error {
   private _code: string;
 
