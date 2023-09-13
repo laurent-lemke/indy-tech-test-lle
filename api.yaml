@@ -231,13 +231,39 @@ components:
       type: array
       minItems: 2
       items:
-        $ref: "#/components/schemas/allPossibleRestrictions"
+        anyOf:
+          - $ref: "#/components/schemas/allPossibleRestrictions"
+          - type: object
+            required:
+              - "@and"
+            properties:
+              "@and":
+                $ref: "#/components/schemas/andRestriction"
+          - type: object
+            required:
+              - "@or"
+            properties:
+              "@or":
+                $ref: "#/components/schemas/orRestriction"
 
     orRestriction:
       type: array
       minItems: 2
       items:
-        $ref: "#/components/schemas/allPossibleRestrictions"
+        anyOf:
+          - $ref: "#/components/schemas/allPossibleRestrictions"
+          - type: object
+            required:
+              - "@and"
+            properties:
+              "@and":
+                $ref: "#/components/schemas/andRestriction"
+          - type: object
+            required:
+              - "@or"
+            properties:
+              "@or":
+                $ref: "#/components/schemas/orRestriction"
 
     dateRestriction:
       type: object
