@@ -62,7 +62,7 @@ describe("restrictions data", () => {
     });
   });
 
-  describe.only("Meteo restriction data ", () => {
+  describe("Meteo restriction data ", () => {
     beforeEach(() => {});
     afterEach(() => {});
 

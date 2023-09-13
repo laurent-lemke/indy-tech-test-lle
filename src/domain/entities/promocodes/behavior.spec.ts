@@ -12,8 +12,17 @@ import {
   addPromoCode,
   findPromoCode,
   cleanPromoCode,
+  checkPromoCodeValidity,
 } from "./behavior";
 import { PromoCode } from "./data";
+
+import { asyncLocalStorage } from "../../../utils/asyncLocalStorage";
+
+jest.mock("../../../utils/asyncLocalStorage");
+
+const mockedAsyncLocalStorage = jest.mocked(asyncLocalStorage, {
+  shallow: true,
+});
 
 describe("promocodes behavior", () => {
   describe("adding a promocode and checking its existence", () => {
@@ -179,6 +188,74 @@ describe("promocodes behavior", () => {
           ]),
         ]),
       ]);
+    });
+  });
+
+  describe("Validating a promo code", () => {
+    const PROMO_CODE_NAME = "blabla";
+    beforeEach(() => {});
+    afterEach(() => {
+      cleanPromoCode(PROMO_CODE_NAME);
+    });
+
+    it("should validate a promo code that meets the requirements", () => {
+      mockedAsyncLocalStorage.getStore.mockReturnValue({ age: 10 });
+      const ageRestriction = new MathRestriction({ lt: 11 });
+      const promoCode = new PromoCode([ageRestriction], PROMO_CODE_NAME, 100);
+      addPromoCode(promoCode);
+
+      const validityResult = checkPromoCodeValidity(PROMO_CODE_NAME);
+
+      expect(validityResult).toEqual({
+        name: PROMO_CODE_NAME,
+        avantage: { percent: 100 },
+        status: "ACCEPTED",
+      });
+    });
+
+    it("should throw an error when trying to validate a non-exisiting promo code", () => {
+      mockedAsyncLocalStorage.getStore.mockReturnValue({ age: 10 });
+      const ageRestriction = new MathRestriction({ lt: 11 });
+      const promoCode = new PromoCode([ageRestriction], PROMO_CODE_NAME, 100);
+      addPromoCode(promoCode);
+
+      expect(() => checkPromoCodeValidity("unknown name")).toThrowError(
+        "Unable to validate a non-existing promo code",
+      );
+    });
+
+    it("should fail to validate and promo code that doesn't meeet the requirements with global reasons", () => {
+      mockedAsyncLocalStorage.getStore.mockReturnValue({
+        age: 11,
+        date: new Date("2023-01-01"),
+      });
+      const ageRestriction = new MathRestriction({ lt: 11 });
+      const dateRestriction = new DateRestriction({
+        after: "2022-01-01",
+        before: "2022-01-01",
+      });
+
+      const promoCode = new PromoCode(
+        [ageRestriction, dateRestriction],
+        PROMO_CODE_NAME,
+        100,
+      );
+      addPromoCode(promoCode);
+
+      const validityResult = checkPromoCodeValidity(PROMO_CODE_NAME);
+
+      expect(validityResult).toEqual({
+        name: PROMO_CODE_NAME,
+        status: "DENIED",
+        reasons: {
+          age: {
+            isValid: false,
+          },
+          date: {
+            isValid: false,
+          },
+        },
+      });
     });
   });
 });

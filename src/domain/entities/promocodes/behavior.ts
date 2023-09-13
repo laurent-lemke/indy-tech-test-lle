@@ -12,7 +12,7 @@ import {
   OrRestriction,
   AndRestriction,
 } from "../restrictions/data";
-import { PromoCode } from "./data";
+import { PromoCode, PromocodeValidatedStatus } from "./data";
 
 import { match } from "ts-pattern";
 
@@ -106,4 +106,57 @@ export const addOneRestrictionBranch = (
       }
     })
     .exhaustive();
+};
+
+export interface PromoCodeValidityResponse {
+  name: string;
+  status: PromocodeValidatedStatus;
+  avantage?: {
+    percent: number;
+  };
+  reasons?: Record<string, { isValid: boolean }>;
+}
+
+export const checkPromoCodeValidity = (
+  promoCodeName: string,
+): PromoCodeValidityResponse => {
+  const foundPromoCode = findPromoCode(promoCodeName);
+
+  if (!foundPromoCode) {
+    throw new CustomError(
+      "Unable to validate a non-existing promo code",
+      ErrorCode.NON_EXISTING_PROMOCODE,
+    );
+  }
+
+  const listOfValidation: boolean[] = [];
+  const validationMapByName: PromoCodeValidityResponse["reasons"] = {};
+
+  for (const restriction of foundPromoCode.listRestrictions) {
+    const isValid = restriction.isValid();
+    listOfValidation.push(isValid);
+    validationMapByName[restriction.name] = { isValid };
+  }
+
+  let status: PromocodeValidatedStatus = PromocodeValidatedStatus.ACCEPTED;
+  let avantage: PromoCodeValidityResponse["avantage"] | undefined = {
+    percent: foundPromoCode.avantage,
+  };
+  let reasons: PromoCodeValidityResponse["reasons"] | undefined;
+
+  if (!listOfValidation.every((el) => el === true)) {
+    status = PromocodeValidatedStatus.DENIED;
+    avantage = undefined;
+    reasons =
+      {
+        ...validationMapByName,
+      } ?? undefined;
+  }
+
+  return {
+    name: foundPromoCode.name,
+    avantage,
+    status,
+    reasons: reasons,
+  };
 };

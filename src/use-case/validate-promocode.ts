@@ -1,26 +1,22 @@
-import { CustomError, ErrorCode } from "../utils/errors";
 import {
   LocalStorageContent,
   asyncLocalStorage,
 } from "../utils/asyncLocalStorage";
 import { ValidatePromoCodeDTO } from "../domain/dtos/validate-promocode/data";
-import { findPromoCode } from "../domain/entities/promocodes/behavior";
+import {
+  findPromoCode,
+  PromoCodeValidityResponse,
+  checkPromoCodeValidity,
+} from "../domain/entities/promocodes/behavior";
 import { Weather } from "../provider/weather/weather";
 import { getWeatherFromCity } from "../provider/weather/openweather/openweather.api";
 
 export async function validatePromoCode(
   promoCodeToValidate: ValidatePromoCodeDTO,
-): Promise<boolean> {
+): Promise<PromoCodeValidityResponse> {
   const { promocode_name: promoCodeName, arguments: args } =
     promoCodeToValidate;
   const foundPromoCode = findPromoCode(promoCodeName);
-
-  if (!foundPromoCode) {
-    throw new CustomError(
-      "Unable to validate a non-existing promo code",
-      ErrorCode.NON_EXISTING_PROMOCODE,
-    );
-  }
 
   const meteoCity = args.meteo?.town;
   let weatherInCity: Weather | undefined;
@@ -35,7 +31,7 @@ export async function validatePromoCode(
     meteoCondition: weatherInCity?.weatherCondition,
   };
 
-  const x = asyncLocalStorage.run(localStoredValue, () => {
-    return foundPromoCode.isOkToApply();
+  return asyncLocalStorage.run(localStoredValue, () => {
+    return checkPromoCodeValidity(foundPromoCode.name);
   });
 }

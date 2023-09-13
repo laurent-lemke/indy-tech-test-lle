@@ -5,10 +5,12 @@ import {
 import { UnitOfValidation } from "./behavior";
 
 export class DateRestriction implements UnitOfValidation {
+  name: string;
   private after: Date;
   private before: Date;
 
   constructor({ before, after }: { before: string; after: string }) {
+    this.name = "date";
     this.after = new Date(after);
     this.before = new Date(before);
   }
@@ -42,11 +44,13 @@ export enum WeatherType {
 }
 
 export class MathRestriction implements UnitOfValidation {
+  name: string;
   private lt?: number;
   private gt?: number;
   private eq?: number;
 
   constructor({ lt, gt, eq }: { lt?: number; gt?: number; eq?: number }) {
+    this.name = "age";
     this.lt = lt;
     this.gt = gt;
     this.eq = eq;
@@ -79,6 +83,7 @@ export class MeteoRestriction
   extends MathRestriction
   implements UnitOfValidation
 {
+  name: string;
   private weatherType?: WeatherType;
 
   constructor({
@@ -93,6 +98,7 @@ export class MeteoRestriction
     weather: WeatherType;
   }) {
     super({ lt, gt, eq });
+    this.name = "meteo";
     this.weatherType = weather;
   }
 
@@ -117,9 +123,11 @@ export class MeteoRestriction
 }
 
 export class OrRestriction implements UnitOfValidation {
+  name: string;
   private _restrictionMembers: UnitOfValidation[];
 
   constructor(restrictionMembers: UnitOfValidation[]) {
+    this.name = "or";
     this._restrictionMembers = restrictionMembers;
   }
 
@@ -128,19 +136,21 @@ export class OrRestriction implements UnitOfValidation {
   }
 
   isValid(): boolean {
+    const listOfValidation: boolean[] = [];
     for (const restriction of this.restrictionMembers) {
-      if (restriction.isValid()) {
-        return true;
-      }
+      listOfValidation.push(restriction.isValid());
     }
-    return false;
+
+    return listOfValidation.includes(true);
   }
 }
 
 export class AndRestriction implements UnitOfValidation {
+  name: string;
   private _restrictionMembers: UnitOfValidation[];
 
   constructor(restrictionMembers: UnitOfValidation[]) {
+    this.name = "and";
     this._restrictionMembers = restrictionMembers;
   }
 
@@ -149,11 +159,11 @@ export class AndRestriction implements UnitOfValidation {
   }
 
   isValid(): boolean {
+    const listOfValidation: boolean[] = [];
     for (const restriction of this.restrictionMembers) {
-      if (restriction.isValid() === false) {
-        return false;
-      }
+      listOfValidation.push(restriction.isValid());
     }
-    return true;
+
+    return listOfValidation.every((el) => el === true);
   }
 }

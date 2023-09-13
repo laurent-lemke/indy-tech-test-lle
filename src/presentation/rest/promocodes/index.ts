@@ -15,9 +15,14 @@ const add = (req: Request, res: Response) => {
 
 const validate = async (req: Request, res: Response) => {
   const promoCodeToValidate = req.body as ValidatePromoCodeDTO;
-  const status = await validatePromoCode(promoCodeToValidate);
-  console.log("status is ", status);
-  res.status(StatusCodes.OK).send({ isValid: status });
+  const validationResponse = await validatePromoCode(promoCodeToValidate);
+
+  let statusCode = StatusCodes.OK;
+  if (validationResponse.reasons) {
+    statusCode = StatusCodes.BAD_REQUEST;
+  }
+
+  res.status(statusCode).send(validationResponse);
 };
 
 router.post("/", add);
