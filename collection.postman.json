@@ -1,1036 +1,402 @@
 {
-  "_": {
-    "postman_id": "91dd4949-0d83-4f88-971a-1c645613e188"
-  },
-  "item": [
-    {
-      "id": "10847cd0-8653-4127-a664-185b7f2be89e",
-      "name": "Add a promo code",
-      "request": {
-        "name": "Add a promo code",
-        "description": {
-          "content": "Allow to add a promo code with various restrictions\n",
-          "type": "text/plain"
-        },
-        "url": {
-          "path": [
-            "api",
-            "v1",
-            "promocodes"
-          ],
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "query": [],
-          "variable": []
-        },
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          },
-          {
-            "key": "Accept",
-            "value": "application/json"
-          }
-        ],
-        "method": "POST",
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"name\": \"toto\",\n  \"avantage\": {\n    \"percent\": 50\n  },\n  \"restrictions\": [\n    {\n      \"@age\": {\n        \"gt\": 1\n      }\n    }\n  ]\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        }
-      },
-      "response": [
-        {
-          "_": {
-            "postman_previewlanguage": "json"
-          },
-          "id": "51d9b963-5397-4d6c-bd01-ed53cda56fe4",
-          "name": "Promo code has been succesfully added",
-          "originalRequest": {
-            "url": {
-              "path": [
-                "api",
-                "v1",
-                "promocodes"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"toto\",\n  \"avantage\": {\n    \"percent\": 50\n  },\n  \"restrictions\": [\n    {\n      \"@age\": {\n        \"gt\": 1\n      }\n    }\n  ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "status": "OK",
-          "code": 200,
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "body": "{\n  \"name\": \"do ad nulla\"\n}",
-          "cookie": []
-        },
-        {
-          "_": {
-            "postman_previewlanguage": "json"
-          },
-          "id": "4e9d8a4f-0109-467a-9f13-2c1c12561653",
-          "name": "Bad Request",
-          "originalRequest": {
-            "url": {
-              "path": [
-                "api",
-                "v1",
-                "promocodes"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"toto\",\n  \"avantage\": {\n    \"percent\": 50\n  },\n  \"restrictions\": [\n    {\n      \"@age\": {\n        \"gt\": 1\n      }\n    }\n  ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "status": "Bad Request",
-          "code": 400,
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "body": "{\n  \"error\": {\n    \"message\": \"id aute\",\n    \"code\": \"id nulla\"\n  }\n}",
-          "cookie": []
-        },
-        {
-          "_": {
-            "postman_previewlanguage": "json"
-          },
-          "id": "5a744338-628a-487e-acaa-08f2367f6ef9",
-          "name": "Internal error",
-          "originalRequest": {
-            "url": {
-              "path": [
-                "api",
-                "v1",
-                "promocodes"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"toto\",\n  \"avantage\": {\n    \"percent\": 50\n  },\n  \"restrictions\": [\n    {\n      \"@age\": {\n        \"gt\": 1\n      }\n    }\n  ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "status": "Internal Server Error",
-          "code": 500,
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "body": "{\n  \"error\": {\n    \"message\": \"id aute\",\n    \"code\": \"id nulla\"\n  }\n}",
-          "cookie": []
-        }
-      ],
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "c2f1357a-f006-48e5-858a-991b9ecbea07",
-            "type": "text/javascript",
-            "exec": [
-              "// Validate status 2xx \npm.test(\"[POST]::/api/v1/promocodes - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
-              "// Validate if response header has matching content-type\npm.test(\"[POST]::/api/v1/promocodes - Content-Type is application/json\", function () {\n   pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\n});\n",
-              "// Validate if response has JSON Body \npm.test(\"[POST]::/api/v1/promocodes - Response has JSON Body\", function () {\n    pm.response.to.have.jsonBody();\n});\n",
-              "// Response Validation\nconst schema = {\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"}}}\n\n// Validate if response matches JSON schema \npm.test(\"[POST]::/api/v1/promocodes - Schema is valid\", function() {\n    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\"int32\", \"int64\", \"float\", \"double\"]});\n});\n"
-            ]
-          }
-        }
-      ],
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      }
-    },
-    {
-      "id": "b24957cc-9502-4a53-ac1e-af6594399668",
-      "name": "Validate a promo code",
-      "request": {
-        "name": "Validate a promo code",
-        "description": {
-          "content": "Validate a given promo code to apply its corresponding discount\n",
-          "type": "text/plain"
-        },
-        "url": {
-          "path": [
-            "api",
-            "v1",
-            "promocodes",
-            "validate"
-          ],
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "query": [],
-          "variable": []
-        },
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          },
-          {
-            "key": "Accept",
-            "value": "application/json"
-          }
-        ],
-        "method": "POST",
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"promocode_name\": \"toto\",\n  \"arguments\": {\n    \"age\": 10\n  }\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        }
-      },
-      "response": [
-        {
-          "_": {
-            "postman_previewlanguage": "json"
-          },
-          "id": "20474ce0-27c3-45bc-b2de-fe4ec49802bb",
-          "name": "Promo code is valid and give its corresponding discount",
-          "originalRequest": {
-            "url": {
-              "path": [
-                "api",
-                "v1",
-                "promocodes",
-                "validate"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"promocode_name\": \"toto\",\n  \"arguments\": {\n    \"age\": 10\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "status": "OK",
-          "code": 200,
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "body": "{\n  \"promocode_name\": \"laborum\",\n  \"status\": \"DENIED\",\n  \"avantage\": {\n    \"percent\": 95163937.92751092\n  },\n  \"reasons\": {\n    \"meteo\": {\n      \"isValid\": true\n    },\n    \"date\": {\n      \"isValid\": true\n    },\n    \"age\": {\n      \"isValid\": true\n    }\n  }\n}",
-          "cookie": []
-        },
-        {
-          "_": {
-            "postman_previewlanguage": "json"
-          },
-          "id": "34e56876-3e2b-424e-a77c-4aced1c17b74",
-          "name": "Bad Request",
-          "originalRequest": {
-            "url": {
-              "path": [
-                "api",
-                "v1",
-                "promocodes",
-                "validate"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"promocode_name\": \"toto\",\n  \"arguments\": {\n    \"age\": 10\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "status": "Bad Request",
-          "code": 400,
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "body": "{\n  \"message\": \"Validation failed for request..\"\n}",
-          "cookie": []
-        },
-        {
-          "_": {
-            "postman_previewlanguage": "json"
-          },
-          "id": "c0b49495-42ef-4f65-b6b0-93a596ba09ba",
-          "name": "Internal error",
-          "originalRequest": {
-            "url": {
-              "path": [
-                "api",
-                "v1",
-                "promocodes",
-                "validate"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"promocode_name\": \"toto\",\n  \"arguments\": {\n    \"age\": 10\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "status": "Internal Server Error",
-          "code": 500,
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "body": "{\n  \"error\": {\n    \"message\": \"id aute\",\n    \"code\": \"id nulla\"\n  }\n}",
-          "cookie": []
-        }
-      ],
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "id": "acd4be6c-8c65-429c-b662-6055c74d32db",
-            "type": "text/javascript",
-            "exec": [
-              "// Validate status 2xx \npm.test(\"[POST]::/api/v1/promocodes/validate - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
-              "// Validate if response header has matching content-type\npm.test(\"[POST]::/api/v1/promocodes/validate - Content-Type is application/json\", function () {\n   pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\n});\n",
-              "// Validate if response has JSON Body \npm.test(\"[POST]::/api/v1/promocodes/validate - Response has JSON Body\", function () {\n    pm.response.to.have.jsonBody();\n});\n",
-              "// Response Validation\nconst schema = {\"type\":\"object\",\"required\":[\"promocode_name\",\"status\"],\"properties\":{\"promocode_name\":{\"type\":\"string\"},\"status\":{\"type\":\"string\",\"enum\":[\"ACCEPTED\",\"DENIED\"]},\"avantage\":{\"type\":\"object\",\"required\":[\"percent\"],\"properties\":{\"percent\":{\"type\":\"number\"}}},\"reasons\":{\"type\":\"object\",\"properties\":{\"meteo\":{\"type\":\"object\",\"properties\":{\"isValid\":{\"type\":\"boolean\"}}},\"date\":{\"type\":\"object\",\"properties\":{\"isValid\":{\"type\":\"boolean\"}}},\"age\":{\"type\":\"object\",\"properties\":{\"isValid\":{\"type\":\"boolean\"}}}}}}}\n\n// Validate if response matches JSON schema \npm.test(\"[POST]::/api/v1/promocodes/validate - Schema is valid\", function() {\n    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\"int32\", \"int64\", \"float\", \"double\"]});\n});\n"
-            ]
-          }
-        }
-      ],
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      }
-    },
-    {
-      "id": "ab7e1678-339d-4609-888c-906a1401b9d2",
-      "name": "Variation Tests",
-      "item": [
-        {
-          "id": "3291771e-6624-4517-a5f5-65d276c84c7a",
-          "name": "indy-tech-test Variations",
-          "item": [
-            {
-              "id": "af74941a-a696-4b4b-a15d-733f4ab3c6cd",
-              "name": "Add a promo code[wrong name Param]",
-              "request": {
-                "name": "Add a promo code[wrong name Param]",
-                "description": {
-                  "content": "Allow to add a promo code with various restrictions\n",
-                  "type": "text/plain"
-                },
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "promocodes"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"name\": 123,\n    \"avantage\": {\n        \"percent\": 50\n    },\n    \"restrictions\": [\n        {\n            \"@age\": {\n                \"gt\": 1\n            }\n        }\n    ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "response": [
-                {
-                  "id": "feceff8f-bd51-4610-a6af-42d70304079d",
-                  "name": "Promo code has been succesfully added",
-                  "originalRequest": {
-                    "url": {
-                      "path": [
-                        "api",
-                        "v1",
-                        "promocodes"
-                      ],
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "query": [],
-                      "variable": []
-                    },
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      }
-                    ],
-                    "method": "POST",
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"name\": \"toto\",\n  \"avantage\": {\n    \"percent\": 50\n  },\n  \"restrictions\": [\n    {\n      \"@age\": {\n        \"gt\": 1\n      }\n    }\n  ]\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "body": "{\n  \"name\": \"do ad nulla\"\n}",
-                  "cookie": []
-                },
-                {
-                  "id": "31b48020-d3c6-4797-ad93-ecfa45ece931",
-                  "name": "Bad Request",
-                  "originalRequest": {
-                    "url": {
-                      "path": [
-                        "api",
-                        "v1",
-                        "promocodes"
-                      ],
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "query": [],
-                      "variable": []
-                    },
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      }
-                    ],
-                    "method": "POST",
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"name\": \"toto\",\n  \"avantage\": {\n    \"percent\": 50\n  },\n  \"restrictions\": [\n    {\n      \"@age\": {\n        \"gt\": 1\n      }\n    }\n  ]\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    }
-                  },
-                  "status": "Bad Request",
-                  "code": 400,
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "body": "{\n  \"error\": {\n    \"message\": \"id aute\",\n    \"code\": \"id nulla\"\n  }\n}",
-                  "cookie": []
-                },
-                {
-                  "id": "a01b3fff-a880-4d20-b160-64361be652fc",
-                  "name": "Internal error",
-                  "originalRequest": {
-                    "url": {
-                      "path": [
-                        "api",
-                        "v1",
-                        "promocodes"
-                      ],
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "query": [],
-                      "variable": []
-                    },
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      }
-                    ],
-                    "method": "POST",
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"name\": \"toto\",\n  \"avantage\": {\n    \"percent\": 50\n  },\n  \"restrictions\": [\n    {\n      \"@age\": {\n        \"gt\": 1\n      }\n    }\n  ]\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    }
-                  },
-                  "status": "Internal Server Error",
-                  "code": 500,
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "body": "{\n  \"error\": {\n    \"message\": \"id aute\",\n    \"code\": \"id nulla\"\n  }\n}",
-                  "cookie": []
-                }
-              ],
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "id": "47efa57b-dde3-4c28-b351-c6ad833784e9",
-                    "type": "text/javascript",
-                    "exec": [
-                      "// Validate response status code \npm.test(\"[POST]::/api/v1/promocodes - Response status code is 400\", function () {\n    pm.expect(pm.response.code).to.equal(400);\n});\n",
-                      "// Validate if response has JSON Body \npm.test(\"[POST]::/api/v1/promocodes - Response has JSON Body\", function () {\n    pm.response.to.have.jsonBody();\n});\n",
-                      "// Response Validation\nconst schema = {\"type\":\"object\",\"properties\":{\"error\":{\"type\":\"object\",\"required\":[\"message\"],\"properties\":{\"message\":{\"type\":\"string\"},\"code\":{\"type\":\"string\"}}}}}\n\n// Validate if response matches JSON schema \npm.test(\"[POST]::/api/v1/promocodes - Schema is valid\", function() {\n    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\"int32\", \"int64\", \"float\", \"double\"]});\n});\n"
-                    ]
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              }
-            },
-            {
-              "id": "caacc4bc-9f93-4de3-ac6b-ec7bec6ed98a",
-              "name": "Add a promo code[wrong avantage.percent Param]",
-              "request": {
-                "name": "Add a promo code[wrong avantage.percent Param]",
-                "description": {
-                  "content": "Allow to add a promo code with various restrictions\n",
-                  "type": "text/plain"
-                },
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "promocodes"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"name\": \"toto\",\n    \"avantage\": {\n        \"percent\": \"123\"\n    },\n    \"restrictions\": [\n        {\n            \"@age\": {\n                \"gt\": 1\n            }\n        }\n    ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "response": [
-                {
-                  "id": "1e9db990-3315-4f79-aa8c-06dded0af1ec",
-                  "name": "Promo code has been succesfully added",
-                  "originalRequest": {
-                    "url": {
-                      "path": [
-                        "api",
-                        "v1",
-                        "promocodes"
-                      ],
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "query": [],
-                      "variable": []
-                    },
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      }
-                    ],
-                    "method": "POST",
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"name\": \"toto\",\n  \"avantage\": {\n    \"percent\": 50\n  },\n  \"restrictions\": [\n    {\n      \"@age\": {\n        \"gt\": 1\n      }\n    }\n  ]\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "body": "{\n  \"name\": \"do ad nulla\"\n}",
-                  "cookie": []
-                },
-                {
-                  "id": "f7aa21b0-6abf-421d-b47c-3d16c4beb776",
-                  "name": "Bad Request",
-                  "originalRequest": {
-                    "url": {
-                      "path": [
-                        "api",
-                        "v1",
-                        "promocodes"
-                      ],
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "query": [],
-                      "variable": []
-                    },
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      }
-                    ],
-                    "method": "POST",
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"name\": \"toto\",\n  \"avantage\": {\n    \"percent\": 50\n  },\n  \"restrictions\": [\n    {\n      \"@age\": {\n        \"gt\": 1\n      }\n    }\n  ]\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    }
-                  },
-                  "status": "Bad Request",
-                  "code": 400,
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "body": "{\n  \"error\": {\n    \"message\": \"id aute\",\n    \"code\": \"id nulla\"\n  }\n}",
-                  "cookie": []
-                },
-                {
-                  "id": "99c88268-07b7-4351-8a75-dc98c7884c6e",
-                  "name": "Internal error",
-                  "originalRequest": {
-                    "url": {
-                      "path": [
-                        "api",
-                        "v1",
-                        "promocodes"
-                      ],
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "query": [],
-                      "variable": []
-                    },
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      }
-                    ],
-                    "method": "POST",
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"name\": \"toto\",\n  \"avantage\": {\n    \"percent\": 50\n  },\n  \"restrictions\": [\n    {\n      \"@age\": {\n        \"gt\": 1\n      }\n    }\n  ]\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    }
-                  },
-                  "status": "Internal Server Error",
-                  "code": 500,
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "body": "{\n  \"error\": {\n    \"message\": \"id aute\",\n    \"code\": \"id nulla\"\n  }\n}",
-                  "cookie": []
-                }
-              ],
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "id": "e57ccd54-d87d-4ffa-b3d4-a1a041f022b9",
-                    "type": "text/javascript",
-                    "exec": [
-                      "// Validate response status code \npm.test(\"[POST]::/api/v1/promocodes - Response status code is 400\", function () {\n    pm.expect(pm.response.code).to.equal(400);\n});\n",
-                      "// Validate if response has JSON Body \npm.test(\"[POST]::/api/v1/promocodes - Response has JSON Body\", function () {\n    pm.response.to.have.jsonBody();\n});\n",
-                      "// Response Validation\nconst schema = {\"type\":\"object\",\"properties\":{\"error\":{\"type\":\"object\",\"required\":[\"message\"],\"properties\":{\"message\":{\"type\":\"string\"},\"code\":{\"type\":\"string\"}}}}}\n\n// Validate if response matches JSON schema \npm.test(\"[POST]::/api/v1/promocodes - Schema is valid\", function() {\n    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\"int32\", \"int64\", \"float\", \"double\"]});\n});\n"
-                    ]
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              }
-            },
-            {
-              "id": "58d77cea-61b7-4e69-ac1b-ddaceaea6ba8",
-              "name": "Validate a promo code[wrong promocode_name Param]",
-              "request": {
-                "name": "Validate a promo code[wrong promocode_name Param]",
-                "description": {
-                  "content": "Validate a given promo code to apply its corresponding discount\n",
-                  "type": "text/plain"
-                },
-                "url": {
-                  "path": [
-                    "api",
-                    "v1",
-                    "promocodes",
-                    "validate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"promocode_name\": 123,\n    \"arguments\": {\n        \"age\": 10\n    }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "response": [
-                {
-                  "id": "ca1305aa-e042-4a51-8961-0e0dc90af061",
-                  "name": "Promo code is valid and give its corresponding discount",
-                  "originalRequest": {
-                    "url": {
-                      "path": [
-                        "api",
-                        "v1",
-                        "promocodes",
-                        "validate"
-                      ],
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "query": [],
-                      "variable": []
-                    },
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      }
-                    ],
-                    "method": "POST",
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"promocode_name\": \"toto\",\n  \"arguments\": {\n    \"age\": 10\n  }\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "body": "{\n  \"promocode_name\": \"laborum\",\n  \"status\": \"DENIED\",\n  \"avantage\": {\n    \"percent\": 95163937.92751092\n  },\n  \"reasons\": {\n    \"meteo\": {\n      \"isValid\": true\n    },\n    \"date\": {\n      \"isValid\": true\n    },\n    \"age\": {\n      \"isValid\": true\n    }\n  }\n}",
-                  "cookie": []
-                },
-                {
-                  "id": "6078ba9f-1ab6-4139-b010-082e1eb1dfae",
-                  "name": "Bad Request",
-                  "originalRequest": {
-                    "url": {
-                      "path": [
-                        "api",
-                        "v1",
-                        "promocodes",
-                        "validate"
-                      ],
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "query": [],
-                      "variable": []
-                    },
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      }
-                    ],
-                    "method": "POST",
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"promocode_name\": \"toto\",\n  \"arguments\": {\n    \"age\": 10\n  }\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    }
-                  },
-                  "status": "Bad Request",
-                  "code": 400,
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "body": "{\n  \"message\": \"Validation failed for request..\"\n}",
-                  "cookie": []
-                },
-                {
-                  "id": "0a7476d7-085b-4c75-9aba-f10beef618a5",
-                  "name": "Internal error",
-                  "originalRequest": {
-                    "url": {
-                      "path": [
-                        "api",
-                        "v1",
-                        "promocodes",
-                        "validate"
-                      ],
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "query": [],
-                      "variable": []
-                    },
-                    "header": [
-                      {
-                        "key": "Accept",
-                        "value": "application/json"
-                      }
-                    ],
-                    "method": "POST",
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"promocode_name\": \"toto\",\n  \"arguments\": {\n    \"age\": 10\n  }\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    }
-                  },
-                  "status": "Internal Server Error",
-                  "code": 500,
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "body": "{\n  \"error\": {\n    \"message\": \"id aute\",\n    \"code\": \"id nulla\"\n  }\n}",
-                  "cookie": []
-                }
-              ],
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "id": "205800fb-1568-49c6-91ee-bbd96ff41988",
-                    "type": "text/javascript",
-                    "exec": [
-                      "// Validate response status code \npm.test(\"[POST]::/api/v1/promocodes/validate - Response status code is 400\", function () {\n    pm.expect(pm.response.code).to.equal(400);\n});\n",
-                      "// Validate if response has JSON Body \npm.test(\"[POST]::/api/v1/promocodes/validate - Response has JSON Body\", function () {\n    pm.response.to.have.jsonBody();\n});\n",
-                      "// Response Validation\nconst schema = {\"type\":\"object\",\"properties\":{\"error\":{\"type\":\"object\",\"required\":[\"message\"],\"properties\":{\"message\":{\"type\":\"string\"},\"code\":{\"type\":\"string\"}}}}}\n\n// Validate if response matches JSON schema \npm.test(\"[POST]::/api/v1/promocodes/validate - Schema is valid\", function() {\n    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\"int32\", \"int64\", \"float\", \"double\"]});\n});\n"
-                    ]
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "disableBodyPruning": true
-              }
-            }
-          ],
-          "event": []
-        }
-      ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "http://localhost:3000",
-      "key": "baseUrl"
-    }
-  ],
-  "info": {
-    "_postman_id": "91dd4949-0d83-4f88-971a-1c645613e188",
-    "name": "indy-tech-test",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "This api allow you to add and validate promo codes",
-      "type": "text/plain"
-    }
-  }
+	"info": {
+		"_postman_id": "039c2749-650d-477c-9905-b9b5e3447785",
+		"name": "Indy collection Laurent",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21931922"
+	},
+	"item": [
+		{
+			"name": "Age + meteo",
+			"item": [
+				{
+					"name": "Add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test_meteo_age_1\",\n    \"avantage\": {\n        \"percent\": 92\n    },\n    \"restrictions\": [\n        {\n            \"@age\": {\n                \"gt\": 15\n            }\n        },\n        {\n            \"@meteo\": {\n                \"is\": \"Rain\",\n                \"temperature\": {\n                    \"gt\": 0\n                }\n            }\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/promocodes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"promocodes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate - OK (check weather)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"promocode_name\": \"test_meteo_age_1\",\n  \"arguments\": {\n    \"age\": 20,\n    \"meteo\": {\n        \"town\": \"Lyon\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/promocodes/validate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"promocodes",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate - KO",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"promocode_name\": \"test_meteo_age_1\",\n  \"arguments\": {\n    \"age\": 14,\n    \"meteo\": {\n        \"town\": \"Lyon\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/promocodes/validate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"promocodes",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Double promo code add",
+			"item": [
+				{
+					"name": "Add - OK",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test_double_promocode_add_1\",\n    \"avantage\": {\n        \"percent\": 92\n    },\n    \"restrictions\": [\n        {\n            \"@age\": {\n                \"gt\": 15\n            }\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/promocodes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"promocodes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add - KO",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test_double_promocode_add_1\",\n    \"avantage\": {\n        \"percent\": 92\n    },\n    \"restrictions\": [\n        {\n            \"@age\": {\n                \"gt\": 15\n            }\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/promocodes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"promocodes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Validate a non-existing promo code",
+			"item": [
+				{
+					"name": "Validate - KO",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"promocode_name\": \"a_rather_unknown_name\",\n  \"arguments\": {\n    \"age\": 14,\n    \"meteo\": {\n        \"town\": \"Lyon\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/promocodes/validate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"promocodes",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AND age + date",
+			"item": [
+				{
+					"name": "Add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test_and_age_date_1\",\n    \"avantage\": {\n        \"percent\": 92\n    },\n    \"restrictions\": [\n        {\n            \"@and\": [\n                {\n                    \"@date\": {\n                        \"before\": \"2024-01-01\",\n                        \"after\": \"2021-01-01\"\n                    }\n                },\n                {\n                    \"@age\": {\n                        \"gt\": 100\n                    }\n                }\n            ]\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/promocodes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"promocodes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate - OK",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"promocode_name\": \"test_and_age_date_1\",\n  \"arguments\": {\n    \"age\": 102\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/promocodes/validate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"promocodes",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate - KO",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"promocode_name\": \"test_and_age_date_1\",\n  \"arguments\": {\n    \"age\": 10\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/promocodes/validate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"promocodes",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OR with nested AND age + date",
+			"item": [
+				{
+					"name": "Add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"test_or_age_date_1\",\n  \"avantage\": {\n    \"percent\": 92\n  },\n  \"restrictions\": [\n    {\n      \"@or\": [\n        {\n          \"@date\": {\n            \"before\": \"2024-01-01\",\n            \"after\": \"2021-01-01\"\n          }\n        },\n        {\n          \"@and\": [\n            {\n              \"@age\": {\n                \"gt\": 10,\n                \"lt\": 100\n              }\n            },\n            {\n              \"@age\": {\n                \"lt\": 99\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/promocodes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"promocodes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate - OK",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"promocode_name\": \"test_or_age_date_1\",\n  \"arguments\": {\n    \"age\": 90\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/promocodes/validate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"promocodes",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate - OK #2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"promocode_name\": \"test_or_age_date_1\",\n  \"arguments\": {\n    \"age\": 99\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/promocodes/validate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"promocodes",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
 }
