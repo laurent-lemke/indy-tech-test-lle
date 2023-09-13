@@ -19,7 +19,6 @@ import { match } from "ts-pattern";
 const promoCodesDict = {};
 
 export const addPromoCode = (addedPromoCode: PromoCode) => {
-  console.log("promoCodesDict is ", promoCodesDict);
   const addedPromoCodeName = addedPromoCode.name;
 
   if (findPromoCode(addedPromoCodeName)) {
@@ -58,16 +57,16 @@ export const addOneRestrictionBranch = (
   // unfortunately Object.keys is not accurate, but it's desirable
   // see: https://github.com/Microsoft/TypeScript/issues/12870
   match(restrictionName as RestrictionName)
-    .with(RestrictionName.AGE, () =>
+    .with(RestrictionName.AGE, () => {
       restrictionsArray.push(
         new MathRestriction({
           lt: restrictionContent.lt,
           gt: restrictionContent.gt,
           eq: restrictionContent.eq,
         }),
-      ),
-    )
-    .with(RestrictionName.METEO, () =>
+      );
+    })
+    .with(RestrictionName.METEO, () => {
       restrictionsArray.push(
         new MeteoRestriction({
           lt: restrictionContent?.temp?.lt,
@@ -75,8 +74,8 @@ export const addOneRestrictionBranch = (
           eq: restrictionContent?.temp?.eq,
           weather: WeatherType[restrictionContent.is.toUpperCase()],
         }),
-      ),
-    )
+      );
+    })
     .with(RestrictionName.DATE, () => {
       restrictionsArray.push(
         new DateRestriction({
@@ -117,9 +116,7 @@ export interface PromoCodeValidityResponse {
   reasons?: Record<string, { isValid: boolean }>;
 }
 
-export const checkPromoCodeValidity = (
-  promoCodeName: string,
-): PromoCodeValidityResponse => {
+export const checkPromoCodeValidity = (promoCodeName: string) => {
   const foundPromoCode = findPromoCode(promoCodeName);
 
   if (!foundPromoCode) {

@@ -18,7 +18,7 @@ const STATUSES_PER_CODE = {
  * @param Response Express response object, used to send response status and body
  * @param Error The error message that will be used to create the http response error
  */
-export const transformErrorToHttpCode = (
+export const transformErrorToHttpCode = async (
   err: CustomError,
   _req: Request,
   res: Response,

@@ -16,7 +16,6 @@ export async function validatePromoCode(
 ): Promise<PromoCodeValidityResponse> {
   const { promocode_name: promoCodeName, arguments: args } =
     promoCodeToValidate;
-  const foundPromoCode = findPromoCode(promoCodeName);
 
   const meteoCity = args.meteo?.town;
   let weatherInCity: Weather | undefined;
@@ -32,6 +31,6 @@ export async function validatePromoCode(
   };
 
   return asyncLocalStorage.run(localStoredValue, () => {
-    return checkPromoCodeValidity(foundPromoCode.name);
+    return checkPromoCodeValidity(promoCodeName);
   });
 }

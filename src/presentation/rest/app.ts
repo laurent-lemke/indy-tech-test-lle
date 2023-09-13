@@ -71,6 +71,7 @@ const initRoutes = (app: Express) => {
   ];
   for (const path of PATHS) {
     app.use(path.path, path.router);
+    // app.use(transformErrorToHttpCode);
   }
 };
 
@@ -82,5 +83,4 @@ export const startWebserver = async (ip: string, port: number) => {
   setupOpenApi(app);
   createLocalServer(app, ip, port);
   initRoutes(app);
-  app.use(transformErrorToHttpCode);
 };

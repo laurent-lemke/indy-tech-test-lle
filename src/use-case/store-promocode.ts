@@ -12,6 +12,7 @@ export function storePromoCode(promoCodeToAdd: AddPromoCodeDTO) {
   for (const restriction of restrictions) {
     addOneRestrictionBranch(restriction, listOfRestrictionsToAdd);
   }
+
   const promoCode = new PromoCode(
     listOfRestrictionsToAdd,
     name,

@@ -81,8 +81,7 @@ export const getWeatherFromCity: WeatherProvider = async (
   const { lat, lon } = await getCoordinateFromCity(cityName);
 
   const { weather, main } = await getWeatherDataFromCoordinate(lat, lon);
-  console.log("weather is ", weather);
-  console.log("main is ", main);
+
   return {
     weatherCondition: weather[0]!.main,
     temperature: main.temp,
