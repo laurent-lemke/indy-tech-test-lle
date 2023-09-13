@@ -3,6 +3,7 @@
   "output": "collection.postman.json",
   "includeTests": true,
   "runNewman": true,
+  "ignoreCircularRefs": true,
   "portmanConfigFile": "./portman/config.json",
   "baseUrl": "http://localhost:3000"
 }
